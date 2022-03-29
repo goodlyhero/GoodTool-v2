@@ -69,11 +69,8 @@ bool GlobalDoFileFromMPQ(const char* file)
 
 			mlog::Lua("running script from mpq: ", file, " : \n");
 			//LogS() << data << std::endl;
-			char* err = state->DoStr(data.c_str());
-			if (err != NULL)
-			{
-				mlog::Error("error while running script from mpq: ", data.c_str(), ": ", err);
-			}
+
+			state->DoStr(data.c_str(), "Menu");
 
 			return true;
 		}

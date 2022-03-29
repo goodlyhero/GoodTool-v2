@@ -86,7 +86,7 @@ namespace lua
         void LogErrors(const char* err)
         {
             mlog::Debug(err);
-            printf(err);
+            printf("%s \n",err);
         }
 
         TLua::TLua(lua_State* lua_state, const char* _name, EventDispatcherBase* dispatcher)

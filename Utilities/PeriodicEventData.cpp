@@ -95,13 +95,13 @@ bool ProcessEvent(pEvent_Data::PeriodicEventData::EventMSG* event)
 		{
 		case EVENT_CODE_RUN_LUA:
 		{
-			size_t len = GetWindowTextLength(Code1);
-			char* buffer = new char[len + 1];
-			GetWindowTextA(Code1, buffer, len + 1);
-			mlog::Lua("Trying To run code from menu:\n", buffer);
-			bool globalstate = GetCheckBoxState(LuaMode);
+			if (NULL == menu::EditText)
+			{
+				return true;
+			}
+			mlog::Lua("Trying To run code from menu:\n", menu::EditText);
 			lua::TLua* state;
-			if (globalstate)
+			if (menu::LocalMode)
 			{
 				state = lua::GetGlobalState();
 				//mlog::Debug("Getting Global State");
@@ -111,29 +111,11 @@ bool ProcessEvent(pEvent_Data::PeriodicEventData::EventMSG* event)
 				state = lua::GetLocalState();
 				//mlog::Debug("Getting Local State");
 			}
-			if (state == NULL)
+			if (state != NULL)
 			{
-				//mlog::Debug("state==NULL");
-			}
-			if (buffer == NULL)
-			{
-				//mlog::Debug("buffer==NULL");
-			}
-			if (state != NULL && buffer != NULL)
-			{
-				char* error = state->DoStr(buffer);
-				if (error != NULL)
-				{
-					TextPrint(error);
-					mlog::Lua("error, when running code from menu: ", error);
-				}
+				state->DoStr(menu::EditText,"Menu");
 
 			}
-			else
-			{
-				//mlog::Debug("Buffer == NULL or cant find State");
-			}
-			delete[] buffer;
 			return true;
 			break;
 		}

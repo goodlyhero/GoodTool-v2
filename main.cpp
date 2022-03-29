@@ -118,7 +118,7 @@ void DetachPreparations()
 		DetachInterestingTextHook();
 		detachNetMsgInitHook();
 
-		DestroyWindows();
+		menu::DestroyWindows();
 	}
 	CreateThread(NULL, NULL, (LPTHREAD_START_ROUTINE)detachLibrary, NULL, NULL, NULL);
 	return;
@@ -173,7 +173,7 @@ void SetWindowName()
 
 void mCreateWindow()
 {
-	MyWindows(ThisLib);
+	menu::MyWindows(ThisLib);
 
 }
 
@@ -197,7 +197,7 @@ BOOL WINAPI DllMain(HMODULE hModule, DWORD dwReason, LPVOID lpReserved)
 
 			}
 
-			printf("Console war opened?!");
+			printf("Hello World! \n");
 
 		}
 		if (GetModuleHandle("game.dll") == NULL)
@@ -249,18 +249,8 @@ BOOL WINAPI DllMain(HMODULE hModule, DWORD dwReason, LPVOID lpReserved)
 			UnlockChat();
 			mlog::Debug("Chat unlocked");
 			AddEvent(EVENT_CODE_INIT_WX, NULL);
-			//mCreateWindow();
 			CreateThread(NULL, NULL, (LPTHREAD_START_ROUTINE)mCreateWindow, NULL, NULL, NULL);
-			//CreateThread(NULL, NULL, (LPTHREAD_START_ROUTINE)mCreateWindow, NULL, NULL, NULL);
-			//SetWindowName();
 		}
-		/*{
-			__asm
-			{
-				mov eax, 0
-				mov esp, [eax]
-			}
-		}*/
 
 
 		mlog::State("Loading Completed");

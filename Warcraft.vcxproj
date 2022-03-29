@@ -76,7 +76,7 @@
     <TargetExt>.dll</TargetExt>
     <TargetName>$(ProjectName)</TargetName>
     <OutDir>$(SolutionDir)$(Configuration)\</OutDir>
-    <IncludePath>.\Utilities\EVENT_INFO;.\3rd party\wx\lib\vc_lib;.\3rd party\wx\include\;.\3rd party\wx\include\msvc;.\3rd party\wxlua\include;.\3rd party\DreamUI;.\3rd party\rcmp\include;.\3rd party;.\Functions\Lua;.\Functions;.\Utilities;.\3rd party\lua\include;.\3rd party\LuaBridge-master\Source;.\3rd party\MinHook;.\3rd party\LuaBridge-master\Source\LuaBridge;$(IncludePath)</IncludePath>
+    <IncludePath>.\Utilities\ImGui\backends;.\Utilities\ImGui;.\Utilities\EVENT_INFO;.\3rd party\wx\lib\vc_lib;.\3rd party\wx\include\;.\3rd party\wx\include\msvc;.\3rd party\wxlua\include;.\3rd party\DreamUI;.\3rd party\rcmp\include;.\3rd party;.\Functions\Lua;.\Functions;.\Utilities;.\3rd party\lua\include;.\3rd party\LuaBridge-master\Source;.\3rd party\MinHook;.\3rd party\LuaBridge-master\Source\LuaBridge;$(IncludePath)</IncludePath>
     <LibraryPath>.\3rd party\MinHook;.\3rd party\wx\lib\vc_lib;.\3rd party\wx\lib;.\3rd party\wxlua\lib;.l\3rd party\DreamUI;.\3rd party\lua\;.\3rd party\rcmp\;.\3rd party\LuaBridge-master\LuaBridge\Debug;$(LibraryPath)</LibraryPath>
     <ReferencePath>$(VC_ReferencesPath_x86);</ReferencePath>
     <ExecutablePath>$(VC_ExecutablePath_x86);$(CommonExecutablePath)</ExecutablePath>
@@ -271,6 +271,8 @@
     <ClCompile Include="Utilities\Hook Text Messages.cpp" />
     <ClCompile Include="Utilities\HookChat.cpp" />
     <ClCompile Include="Utilities\HookOnTick.ixx" />
+    <ClCompile Include="Utilities\ImGui\backends\imgui_impl_dx9.cpp" />
+    <ClCompile Include="Utilities\ImGui\backends\imgui_impl_win32.cpp" />
     <ClCompile Include="Utilities\ImGui\imgui.cpp" />
     <ClCompile Include="Utilities\ImGui\imgui_demo.cpp" />
     <ClCompile Include="Utilities\ImGui\imgui_draw.cpp" />
@@ -401,6 +403,8 @@
     <ClInclude Include="Utilities\EVENT_INFO\EVENT_INFO.h" />
     <ClInclude Include="Utilities\Hook Text Messages.h" />
     <ClInclude Include="Utilities\HookChat.h" />
+    <ClInclude Include="Utilities\ImGui\backends\imgui_impl_dx9.h" />
+    <ClInclude Include="Utilities\ImGui\backends\imgui_impl_win32.h" />
     <ClInclude Include="Utilities\ImGui\imconfig.h" />
     <ClInclude Include="Utilities\ImGui\imgui.h" />
     <ClInclude Include="Utilities\ImGui\imgui_internal.h" />
