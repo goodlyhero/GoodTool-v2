@@ -361,3 +361,9 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+.vscode/settings.json
+GoodTool1.3.zip
+GoodTool1.4.zip
+GoodTool1.5.zip
+GoodTool1.6.zip
+GoodTool1.7.zip
