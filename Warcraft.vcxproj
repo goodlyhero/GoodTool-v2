@@ -1,0 +1,426 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Simple|Win32">
+      <Configuration>Simple</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{112DED83-BDA4-4353-A0C5-44D2A8109A61}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>Warcraft</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+    <ProjectName>GoodTool</ProjectName>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v143</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <EnableUnitySupport>false</EnableUnitySupport>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Simple|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v143</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <EnableUnitySupport>false</EnableUnitySupport>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v143</PlatformToolset>
+    <EnableUnitySupport>false</EnableUnitySupport>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Simple|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+    <IncludePath>.\3rd party\rcmp\include;.\3rd party;.\Functions\Lua;.\Functions;.\Utilities;.\3rd party\lua\include;.\3rd party\LuaBridge-master\Source;.\3rd party\LuaBridge-master\Source\LuaBridge;$(IncludePath)</IncludePath>
+    <LibraryPath>.\Debug;.\3rd party\lua\;.\3rd party\rcmp\;.\3rd party\LuaBridge-master\LuaBridge\Debug;$(LibraryPath)</LibraryPath>
+    <SourcePath>.\3rd party\LuaBridge-master\Source;.\3rd party\LuaBridge-master\Source\LuaBridge;$(VC_SourcePath)</SourcePath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Simple|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+    <IncludePath>.\3rd party\rcmp\include;.\3rd party\lua\include;.\Functions;.\Utilities;.\Functions\Lua;$(IncludePath)</IncludePath>
+    <LibraryPath>.\3rd party\rcmp\;.\3rd party\lua\;$(LibraryPath)</LibraryPath>
+    <TargetName>$(ProjectName)_Simple</TargetName>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+    <TargetExt>.dll</TargetExt>
+    <TargetName>$(ProjectName)</TargetName>
+    <OutDir>$(SolutionDir)$(Configuration)\</OutDir>
+    <IncludePath>.\Utilities\EVENT_INFO;.\3rd party\wx\lib\vc_lib;.\3rd party\wx\include\;.\3rd party\wx\include\msvc;.\3rd party\wxlua\include;.\3rd party\DreamUI;.\3rd party\rcmp\include;.\3rd party;.\Functions\Lua;.\Functions;.\Utilities;.\3rd party\lua\include;.\3rd party\LuaBridge-master\Source;.\3rd party\MinHook;.\3rd party\LuaBridge-master\Source\LuaBridge;$(IncludePath)</IncludePath>
+    <LibraryPath>.\3rd party\MinHook;.\3rd party\wx\lib\vc_lib;.\3rd party\wx\lib;.\3rd party\wxlua\lib;.l\3rd party\DreamUI;.\3rd party\lua\;.\3rd party\rcmp\;.\3rd party\LuaBridge-master\LuaBridge\Debug;$(LibraryPath)</LibraryPath>
+    <ReferencePath>$(VC_ReferencesPath_x86);</ReferencePath>
+    <ExecutablePath>$(VC_ExecutablePath_x86);$(CommonExecutablePath)</ExecutablePath>
+    <LibraryWPath>$(LibraryWPath)</LibraryWPath>
+    <SourcePath>.\3rd party\LuaBridge-master\Source;.\3rd party\LuaBridge-master\Source\LuaBridge;$(VC_SourcePath)</SourcePath>
+    <GenerateManifest>false</GenerateManifest>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;WARCRAFT_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <LanguageStandard>stdcpp20</LanguageStandard>
+      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <WholeProgramOptimization>true</WholeProgramOptimization>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <ErrorReporting>None</ErrorReporting>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <LanguageStandard_C>Default</LanguageStandard_C>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
+      <AdditionalDependencies>version.lib;Urlmon.lib;Shlwapi.lib;Wininet.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <BaseAddress>0x69000000</BaseAddress>
+      <RandomizedBaseAddress>false</RandomizedBaseAddress>
+      <FixedBaseAddress>false</FixedBaseAddress>
+      <Version>1</Version>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Simple|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;WARCRAFT_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <WholeProgramOptimization>true</WholeProgramOptimization>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <ErrorReporting>None</ErrorReporting>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <BasicRuntimeChecks>StackFrameRuntimeCheck</BasicRuntimeChecks>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
+      <AdditionalDependencies>version.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <BaseAddress>0x68000000</BaseAddress>
+      <RandomizedBaseAddress>false</RandomizedBaseAddress>
+      <FixedBaseAddress>true</FixedBaseAddress>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <Optimization>Full</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>WIN32_LEAN_AND_MEAN;WIN32;NDEBUG;_WINDOWS;_USRDLL;WARCRAFT_EXPORTS;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PrecompiledHeaderFile>
+      </PrecompiledHeaderFile>
+      <PrecompiledHeaderOutputFile>
+      </PrecompiledHeaderOutputFile>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <ProgramDataBaseFileName>$(IntDir)</ProgramDataBaseFileName>
+      <LanguageStandard>stdcpp20</LanguageStandard>
+      <BrowseInformation>true</BrowseInformation>
+      <ExpandAttributedSource>false</ExpandAttributedSource>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <ScanSourceForModuleDependencies>true</ScanSourceForModuleDependencies>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <ProgramDatabaseFile>
+      </ProgramDatabaseFile>
+      <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
+      <FixedBaseAddress>false</FixedBaseAddress>
+      <BaseAddress>0x7f000000</BaseAddress>
+      <RandomizedBaseAddress>false</RandomizedBaseAddress>
+      <Version>1.6</Version>
+      <OutputFile>$(OutDir)$(TargetName)$(TargetExt)</OutputFile>
+      <SupportUnloadOfDelayLoadedDLL>true</SupportUnloadOfDelayLoadedDLL>
+    </Link>
+    <PostBuildEvent />
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="Functions\Additional Native Constants.cpp" />
+    <ClCompile Include="Functions\Additional Native Functions.cpp" />
+    <ClCompile Include="Functions\API\Ability\AbilityAddress.cpp" />
+    <ClCompile Include="Functions\API\Ability\AbilityBase.cpp" />
+    <ClCompile Include="Functions\API\Ability\AbilityNormal.cpp" />
+    <ClCompile Include="Functions\API\Ability\AbilityUnit.cpp" />
+    <ClCompile Include="Functions\API\Ability\CastAbility.cpp" />
+    <ClCompile Include="Functions\API\Agent\APITimerEx.ixx" />
+    <ClCompile Include="Functions\API\APIIterators.ixx" />
+    <ClCompile Include="Functions\API\Agent\Effect.cpp" />
+    <ClCompile Include="Functions\API\Agent\Trackable.cpp" />
+    <ClCompile Include="Functions\API\Agent\Widget.cpp" />
+    <ClCompile Include="Functions\API\Also.cpp" />
+    <ClCompile Include="Functions\API\bindapi.cpp" />
+    <ClCompile Include="Functions\API\ClassInfoGameBase.ixx" />
+    <ClCompile Include="Functions\API\Cursor.ixx" />
+    <ClCompile Include="Functions\API\FPS.cpp" />
+    <ClCompile Include="Functions\API\Frame\CBackDropFrame.cpp" />
+    <ClCompile Include="Functions\API\Frame\CEditBox.cpp" />
+    <ClCompile Include="Functions\API\Frame\CFrame.cpp" />
+    <ClCompile Include="Functions\API\Frame\CIconCover.ixx" />
+    <ClCompile Include="Functions\API\Frame\CLayer.cpp" />
+    <ClCompile Include="Functions\API\Frame\CLayoutFrame.cpp" />
+    <ClCompile Include="Functions\API\Frame\CModelFrame.cpp" />
+    <ClCompile Include="Functions\API\Frame\CommandBarButton.ixx" />
+    <ClCompile Include="Functions\API\Frame\CSimpleButton.cpp" />
+    <ClCompile Include="Functions\API\Frame\CSimpleFont.cpp" />
+    <ClCompile Include="Functions\API\Frame\CSimpleFrame.cpp" />
+    <ClCompile Include="Functions\API\Frame\CSimpleGlue.cpp" />
+    <ClCompile Include="Functions\API\Frame\CSimpleMessageFrame.cpp" />
+    <ClCompile Include="Functions\API\Frame\CSimpleRegion.cpp" />
+    <ClCompile Include="Functions\API\Frame\CSimpleStatusBar.cpp" />
+    <ClCompile Include="Functions\API\Frame\CSimpleTexture.cpp" />
+    <ClCompile Include="Functions\API\Frame\CSlider.cpp" />
+    <ClCompile Include="Functions\API\Frame\CSpriteFrame.cpp" />
+    <ClCompile Include="Functions\API\Frame\CStatusBar.cpp" />
+    <ClCompile Include="Functions\API\Frame\CTextArea.cpp" />
+    <ClCompile Include="Functions\API\Frame\CTextFrame.cpp" />
+    <ClCompile Include="Functions\API\Frame\Frame.cpp" />
+    <ClCompile Include="Functions\API\Frame\initframetypes.cpp" />
+    <ClCompile Include="Functions\API\Group.cpp" />
+    <ClCompile Include="Functions\API\Item\ItemBase.cpp" />
+    <ClCompile Include="Functions\API\Item\ItemNormal.cpp" />
+    <ClCompile Include="Functions\API\KeyHook.cpp" />
+    <ClCompile Include="Functions\API\Keys.cpp" />
+    <ClCompile Include="Functions\API\Memory\JassNamesMemory.ixx" />
+    <ClCompile Include="Functions\API\Memory\MemoryCNetData.ixx" />
+    <ClCompile Include="Functions\API\MHport Common.cpp" />
+    <ClCompile Include="Functions\API\ClassInfoGame.ixx" />
+    <ClCompile Include="Functions\API\WindowsApi funcs.cpp" />
+    <ClCompile Include="Functions\API\WindowsApi funcs.h" />
+    <ClCompile Include="Functions\API\Memory\APIMemoryString.cpp" />
+    <ClCompile Include="Functions\API\Memory\MemoryGameData.cpp" />
+    <ClCompile Include="Functions\API\Memory\MemoryGameUI.cpp" />
+    <ClCompile Include="Functions\API\Memory\MemoryGameUIButton.cpp" />
+    <ClCompile Include="Functions\API\Memory\MemoryGameWindow.cpp" />
+    <ClCompile Include="Functions\API\Memory\MemoryMPQ.cpp" />
+    <ClCompile Include="Functions\API\Memory\MemoryObjectData.cpp" />
+    <ClCompile Include="Functions\API\Memory\MemoryStormDLL.cpp" />
+    <ClCompile Include="Functions\API\Player.cpp" />
+    <ClCompile Include="Functions\API\InitGameUI.cpp" />
+    <ClCompile Include="Functions\API\UI.cpp" />
+    <ClCompile Include="Functions\API\Unit\UnitBase.cpp" />
+    <ClCompile Include="Functions\API\Unit\UnitNormal.cpp" />
+    <ClCompile Include="Functions\BasicConstants.cpp" />
+    <ClCompile Include="Functions\CNatives.cpp" />
+    <ClCompile Include="Functions\Commands\Base.cpp" />
+    <ClCompile Include="Functions\Commands\Powerful.cpp" />
+    <ClCompile Include="Functions\Commands\Simple.cpp" />
+    <ClCompile Include="Functions\Commands\Test.cpp" />
+    <ClCompile Include="Functions\Functions.cpp" />
+    <ClCompile Include="Functions\GeneralDispatcher.ixx" />
+    <ClCompile Include="Functions\HackDevs.cpp" />
+    <ClCompile Include="Functions\Jass Natives.cpp" />
+    <ClCompile Include="Functions\JassCommonConsts.ixx" />
+    <ClCompile Include="Functions\Logs\Log.cpp" />
+    <ClCompile Include="Functions\Lua\JassRef.ixx" />
+    <ClCompile Include="Functions\Lua\LuaApiFuncs.ixx" />
+    <ClCompile Include="Functions\Lua\DefineConstants.cpp" />
+    <ClCompile Include="Functions\Lua\Events.cpp" />
+    <ClCompile Include="Functions\Lua\LuaEngine.cpp" />
+    <ClCompile Include="Functions\Lua\LuaFunctions.cpp" />
+    <ClCompile Include="Functions\Lua\LuaNatives.cpp" />
+    <ClCompile Include="Functions\Lua\LuaStates.cpp" />
+    <ClCompile Include="Functions\States.cpp" />
+    <ClCompile Include="Functions\Warcraft Functions.cpp" />
+    <ClCompile Include="Utilities\Cleanup.cpp" />
+    <ClCompile Include="Utilities\EVENT_INFO\Custom Events\EVENT_ON_TICK.ixx" />
+    <ClCompile Include="Utilities\EVENT_INFO\Custom Events\EVENT_CHAT_COMMAND.ixx" />
+    <ClCompile Include="Utilities\EVENT_INFO\Custom Events\EVENT_KEY_INPUT.ixx" />
+    <ClCompile Include="Utilities\EVENT_INFO\Custom Events\EVENT_UNIT_DAMAGED.ixx" />
+    <ClCompile Include="Utilities\EVENT_INFO\EVENTS.ixx" />
+    <ClCompile Include="Utilities\Hook Text Messages.cpp" />
+    <ClCompile Include="Utilities\HookChat.cpp" />
+    <ClCompile Include="Utilities\HookOnTick.ixx" />
+    <ClCompile Include="Utilities\ImGui\imgui.cpp" />
+    <ClCompile Include="Utilities\ImGui\imgui_demo.cpp" />
+    <ClCompile Include="Utilities\ImGui\imgui_draw.cpp" />
+    <ClCompile Include="Utilities\ImGui\imgui_tables.cpp" />
+    <ClCompile Include="Utilities\ImGui\imgui_widgets.cpp" />
+    <ClCompile Include="Utilities\JassLuaThreadInteraction.ixx" />
+    <ClCompile Include="Utilities\Mem_restorer.cpp" />
+    <ClCompile Include="Utilities\Menu.cpp" />
+    <ClCompile Include="main.cpp">
+      <CompileAsManaged Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</CompileAsManaged>
+      <CompileAsManaged Condition="'$(Configuration)|$(Platform)'=='Simple|Win32'">false</CompileAsManaged>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+      </PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Simple|Win32'">
+      </PrecompiledHeader>
+      <CompileAsManaged Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</CompileAsManaged>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+      </PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="Utilities\DmgEventData.cpp" />
+    <ClCompile Include="Utilities\MPQres.cpp" />
+    <ClCompile Include="Utilities\Observer\DataNode.ixx" />
+    <ClCompile Include="Utilities\Observer\Dispatcher.ixx" />
+    <ClCompile Include="Utilities\Observer\Event.ixx" />
+    <ClCompile Include="Utilities\Observer\EventData.ixx" />
+    <ClCompile Include="Utilities\Observer\EventDataEx.ixx" />
+    <ClCompile Include="Utilities\Observer\EventDispatcherBase.ixx" />
+    <ClCompile Include="Utilities\Observer\EventTransporters.ixx" />
+    <ClCompile Include="Utilities\Observer\LuaObserver.ixx" />
+    <ClCompile Include="Utilities\Observer\Object.ixx" />
+    <ClCompile Include="Utilities\PeriodicEventData.cpp" />
+    <ClCompile Include="Utilities\PrintDmg.cpp" />
+    <ClCompile Include="Utilities\Properties.cpp" />
+    <ClCompile Include="Utilities\RenderHook.ixx" />
+    <ClCompile Include="Utilities\ShowSkillsForAllies.cpp" />
+    <ClCompile Include="Utilities\UIHooks.ixx" />
+    <ClCompile Include="Utilities\UnlimitMapSize.ixx" />
+    <ClCompile Include="Utilities\Widescreen.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="3rd party\INIReader.h" />
+    <ClInclude Include="3rd party\luabinder.hpp" />
+    <ClInclude Include="3rd party\wglext.h" />
+    <ClInclude Include="Functions\Additional Native Constants.h" />
+    <ClInclude Include="Functions\Additional Native Functions.h" />
+    <ClInclude Include="Functions\API\Ability\ability.h" />
+    <ClInclude Include="Functions\API\Ability\AbilityAddress.h" />
+    <ClInclude Include="Functions\API\Ability\AbilityBase.h" />
+    <ClInclude Include="Functions\API\Ability\AbilityNormal.h" />
+    <ClInclude Include="Functions\API\Ability\AbilityUnit.h" />
+    <ClInclude Include="Functions\API\Ability\CastAbility.h" />
+    <ClInclude Include="Functions\API\Agent\agent.h" />
+    <ClInclude Include="Functions\API\Agent\Effect.h" />
+    <ClInclude Include="Functions\API\Agent\Trackable.h" />
+    <ClInclude Include="Functions\API\Agent\Widget.h" />
+    <ClInclude Include="Functions\API\Also.h" />
+    <ClInclude Include="Functions\API\bindapi.h" />
+    <ClInclude Include="Functions\API\FPS.h" />
+    <ClInclude Include="Functions\API\Frame\CBackDropFrame.h" />
+    <ClInclude Include="Functions\API\Frame\CEditBox.h" />
+    <ClInclude Include="Functions\API\Frame\CFrame.h" />
+    <ClInclude Include="Functions\API\Frame\CLayer.h" />
+    <ClInclude Include="Functions\API\Frame\CLayoutFrame.h" />
+    <ClInclude Include="Functions\API\Frame\CModelFrame.h" />
+    <ClInclude Include="Functions\API\Frame\CSimpleButton.h" />
+    <ClInclude Include="Functions\API\Frame\CSimpleFont.h" />
+    <ClInclude Include="Functions\API\Frame\CSimpleFrame.h" />
+    <ClInclude Include="Functions\API\Frame\CSimpleGlue.h" />
+    <ClInclude Include="Functions\API\Frame\CSimpleMessageFrame.h" />
+    <ClInclude Include="Functions\API\Frame\CSimpleRegion.h" />
+    <ClInclude Include="Functions\API\Frame\CSimpleStatusBar.h" />
+    <ClInclude Include="Functions\API\Frame\CSimpleTexture.h" />
+    <ClInclude Include="Functions\API\Frame\CSlider.h" />
+    <ClInclude Include="Functions\API\Frame\CSpriteFrame.h" />
+    <ClInclude Include="Functions\API\Frame\CStatusBar.h" />
+    <ClInclude Include="Functions\API\Frame\CTextArea.h" />
+    <ClInclude Include="Functions\API\Frame\CTextFrame.h" />
+    <ClInclude Include="Functions\API\Frame\Frame Include.h" />
+    <ClInclude Include="Functions\API\Frame\Frame.h" />
+    <ClInclude Include="Functions\API\Frame\initframetypes.h" />
+    <ClInclude Include="Functions\API\Group.h" />
+    <ClInclude Include="Functions\API\InitGameUI.h" />
+    <ClInclude Include="Functions\API\Item\item.h" />
+    <ClInclude Include="Functions\API\Item\ItemBase.h" />
+    <ClInclude Include="Functions\API\Item\ItemNormal.h" />
+    <ClInclude Include="Functions\API\KeyHook.h" />
+    <ClInclude Include="Functions\API\Keys.h" />
+    <ClInclude Include="Functions\API\Memory\MemoryGameUI.h" />
+    <ClInclude Include="Functions\API\Memory\MemoryGameUIButton.h" />
+    <ClInclude Include="Functions\API\Memory\MemoryGameWindow.h" />
+    <ClInclude Include="Functions\API\Memory\MemoryMPQ.h" />
+    <ClInclude Include="Functions\API\Memory\MemoryObjectData.h" />
+    <ClInclude Include="Functions\API\Memory\MemoryStormDLL.h" />
+    <ClInclude Include="Functions\API\UI.h" />
+    <ClInclude Include="Functions\API\Unit\UnitBase.h" />
+    <ClInclude Include="Functions\API\Unit\UnitNormal.h" />
+    <ClInclude Include="Functions\Commands\Simple.h" />
+    <ClInclude Include="Functions\Deg2Rad.h" />
+    <ClInclude Include="Functions\From MemHack.h" />
+    <ClInclude Include="Functions\Calls.h" />
+    <ClInclude Include="Functions\API\Memory\APIMemoryString.h" />
+    <ClInclude Include="Functions\API\Memory\Memory.h" />
+    <ClInclude Include="Functions\API\Memory\MemoryGameData.h" />
+    <ClInclude Include="Functions\API\MHport Common.h" />
+    <ClInclude Include="Functions\API\Player.h" />
+    <ClInclude Include="Functions\BasicConstants.h" />
+    <ClInclude Include="Functions\Commands\Base.h" />
+    <ClInclude Include="Functions\CNatives.h" />
+    <ClInclude Include="Functions\Commands\Common Includes.h" />
+    <ClInclude Include="Functions\Commands\Powerful.h" />
+    <ClInclude Include="Functions\Commands\Test.h" />
+    <ClInclude Include="Functions\Extern Natives.h" />
+    <ClInclude Include="Functions\Functions.h" />
+    <ClInclude Include="Functions\Jass Natives.h" />
+    <ClInclude Include="Functions\Logs\Log.h" />
+    <ClInclude Include="Functions\Lua\DefineConstants.h" />
+    <ClInclude Include="Functions\Lua\Events.h" />
+    <ClInclude Include="Functions\Lua\LuaEngine.h" />
+    <ClInclude Include="Functions\Lua\LuaFunctions.h" />
+    <ClInclude Include="Functions\Lua\LuaNatives.h" />
+    <ClInclude Include="Functions\Lua\LuaStates.h" />
+    <ClInclude Include="Functions\States.h" />
+    <ClInclude Include="Functions\Warcraft Functions.h" />
+    <ClInclude Include="Utilities\Cleanup.h" />
+    <ClInclude Include="Utilities\DmgEventData.h" />
+    <ClInclude Include="Utilities\EVENT_INFO\EVENT_ID.h" />
+    <ClInclude Include="Utilities\EVENT_INFO\EVENT_DATA_ID.h" />
+    <ClInclude Include="Utilities\EVENT_INFO\EVENT_INFO.h" />
+    <ClInclude Include="Utilities\Hook Text Messages.h" />
+    <ClInclude Include="Utilities\HookChat.h" />
+    <ClInclude Include="Utilities\ImGui\imconfig.h" />
+    <ClInclude Include="Utilities\ImGui\imgui.h" />
+    <ClInclude Include="Utilities\ImGui\imgui_internal.h" />
+    <ClInclude Include="Utilities\ImGui\imstb_rectpack.h" />
+    <ClInclude Include="Utilities\ImGui\imstb_textedit.h" />
+    <ClInclude Include="Utilities\ImGui\imstb_truetype.h" />
+    <ClInclude Include="Utilities\Mem_restorer.h" />
+    <ClInclude Include="Utilities\Menu.h" />
+    <ClInclude Include="main.h" />
+    <ClInclude Include="Utilities\MPQres.h" />
+    <ClInclude Include="Utilities\Observer\DataNode Info Types.h" />
+    <ClInclude Include="Utilities\PeriodicEventData.h" />
+    <ClInclude Include="Utilities\PrintDmg.h" />
+    <ClInclude Include="Utilities\Properties.h" />
+    <ClInclude Include="Utilities\ShowSkillsForAllies.h" />
+    <ClInclude Include="Utilities\Widescreen.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ntable.lua" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets" />
+</Project>

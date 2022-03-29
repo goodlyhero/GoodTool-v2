@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="LuaBridge" />
+		<Option pch_mode="2" />
+		<Option compiler="gcc" />
+		<Build>
+			<Target title="Debug Win32">
+				<Option output="../../../Debug/LuaBridge" prefix_auto="1" extension_auto="1" />
+				<Option working_dir="" />
+				<Option object_output="Debug/" />
+				<Option deps_output="../../../Debug/" />
+				<Option type="2" />
+				<Option compiler="gcc" />
+				<Option createDefFile="1" />
+				<Compiler>
+					<Add option="-g" />
+					<Add option="-DWIN32" />
+					<Add option="-D_DEBUG" />
+					<Add option="-D_LIB" />
+					<Add option="-Wall" />
+					<Add directory="../Source/" />
+					<Add directory="$(IncludePath)/" />
+				</Compiler>
+				<Linker>
+					<Add library="winmm.lib" />
+					<Add library="comctl32.lib" />
+					<Add library="kernel32.lib" />
+					<Add library="user32.lib" />
+					<Add library="gdi32.lib" />
+					<Add library="winspool.lib" />
+					<Add library="comdlg32.lib" />
+					<Add library="advapi32.lib" />
+					<Add library="shell32.lib" />
+					<Add library="ole32.lib" />
+					<Add library="oleaut32.lib" />
+					<Add library="uuid.lib" />
+					<Add library="odbc32.lib" />
+					<Add library="odbccp32.lib" />
+				</Linker>
+			</Target>
+			<Target title="Debug x64">
+				<Option output="../../../Debug/LuaBridge" prefix_auto="1" extension_auto="1" />
+				<Option working_dir="" />
+				<Option object_output="Debug/" />
+				<Option deps_output="../../../Debug/" />
+				<Option type="2" />
+				<Option compiler="gcc" />
+				<Option createDefFile="1" />
+				<Compiler>
+					<Add option="-g" />
+					<Add option="-D_DEBUG" />
+					<Add option="-D_LIB" />
+					<Add option="-Wall" />
+				</Compiler>
+				<Linker>
+					<Add library="winmm.lib" />
+					<Add library="comctl32.lib" />
+					<Add library="kernel32.lib" />
+					<Add library="user32.lib" />
+					<Add library="gdi32.lib" />
+					<Add library="winspool.lib" />
+					<Add library="comdlg32.lib" />
+					<Add library="advapi32.lib" />
+					<Add library="shell32.lib" />
+					<Add library="ole32.lib" />
+					<Add library="oleaut32.lib" />
+					<Add library="uuid.lib" />
+					<Add library="odbc32.lib" />
+					<Add library="odbccp32.lib" />
+				</Linker>
+			</Target>
+			<Target title="Release x64">
+				<Option output="../../../Release/LuaBridge" prefix_auto="1" extension_auto="1" />
+				<Option working_dir="" />
+				<Option object_output="Release/" />
+				<Option deps_output="../../../Release/" />
+				<Option type="2" />
+				<Option compiler="gcc" />
+				<Option createDefFile="1" />
+				<Compiler>
+					<Add option="-DNDEBUG" />
+					<Add option="-D_LIB" />
+					<Add option="-Wall" />
+				</Compiler>
+				<Linker>
+					<Add library="winmm.lib" />
+					<Add library="comctl32.lib" />
+					<Add library="kernel32.lib" />
+					<Add library="user32.lib" />
+					<Add library="gdi32.lib" />
+					<Add library="winspool.lib" />
+					<Add library="comdlg32.lib" />
+					<Add library="advapi32.lib" />
+					<Add library="shell32.lib" />
+					<Add library="ole32.lib" />
+					<Add library="oleaut32.lib" />
+					<Add library="uuid.lib" />
+					<Add library="odbc32.lib" />
+					<Add library="odbccp32.lib" />
+				</Linker>
+			</Target>
+			<Target title="Release Win32">
+				<Option output="../../../Release/LuaBridge" prefix_auto="1" extension_auto="1" />
+				<Option working_dir="" />
+				<Option object_output="Release/" />
+				<Option deps_output="../../../Release/" />
+				<Option type="2" />
+				<Option compiler="gcc" />
+				<Option createDefFile="1" />
+				<Compiler>
+					<Add option="-DWIN32" />
+					<Add option="-DNDEBUG" />
+					<Add option="-D_LIB" />
+					<Add option="-Wall" />
+				</Compiler>
+				<Linker>
+					<Add library="winmm.lib" />
+					<Add library="comctl32.lib" />
+					<Add library="kernel32.lib" />
+					<Add library="user32.lib" />
+					<Add library="gdi32.lib" />
+					<Add library="winspool.lib" />
+					<Add library="comdlg32.lib" />
+					<Add library="advapi32.lib" />
+					<Add library="shell32.lib" />
+					<Add library="ole32.lib" />
+					<Add library="oleaut32.lib" />
+					<Add library="uuid.lib" />
+					<Add library="odbc32.lib" />
+					<Add library="odbccp32.lib" />
+				</Linker>
+			</Target>
+		</Build>
+		<Unit filename="../Source/LuaBridge/Array.h" />
+		<Unit filename="../Source/LuaBridge/List.h" />
+		<Unit filename="../Source/LuaBridge/LuaBridge.h" />
+		<Unit filename="../Source/LuaBridge/Map.h" />
+		<Unit filename="../Source/LuaBridge/Optional.h" />
+		<Unit filename="../Source/LuaBridge/RefCountedObject.h" />
+		<Unit filename="../Source/LuaBridge/RefCountedPtr.h" />
+		<Unit filename="../Source/LuaBridge/UnorderedMap.h" />
+		<Unit filename="../Source/LuaBridge/Vector.h" />
+		<Unit filename="../Source/LuaBridge/detail/CFunctions.h" />
+		<Unit filename="../Source/LuaBridge/detail/ClassInfo.h" />
+		<Unit filename="../Source/LuaBridge/detail/Config.h" />
+		<Unit filename="../Source/LuaBridge/detail/Constructor.h" />
+		<Unit filename="../Source/LuaBridge/detail/FuncTraits.h" />
+		<Unit filename="../Source/LuaBridge/detail/Iterator.h" />
+		<Unit filename="../Source/LuaBridge/detail/LuaException.h" />
+		<Unit filename="../Source/LuaBridge/detail/LuaHelpers.h" />
+		<Unit filename="../Source/LuaBridge/detail/LuaRef.h" />
+		<Unit filename="../Source/LuaBridge/detail/Namespace.h" />
+		<Unit filename="../Source/LuaBridge/detail/Security.h" />
+		<Unit filename="../Source/LuaBridge/detail/Stack.h" />
+		<Unit filename="../Source/LuaBridge/detail/TypeList.h" />
+		<Unit filename="../Source/LuaBridge/detail/TypeTraits.h" />
+		<Unit filename="../Source/LuaBridge/detail/Userdata.h" />
+		<Unit filename="../Source/LuaBridge/detail/dump.h" />
+		<Extensions>
+			<lib_finder disable_auto="1" />
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>
