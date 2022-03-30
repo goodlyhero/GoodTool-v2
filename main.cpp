@@ -2,6 +2,7 @@
 #include <iostream>
 #include <Windows.h>
 #include <cmath>
+//#include <stringstream>
 ////////////////////////////////////
 #include "Functions/Lua/LuaStates.h"
 #include "Functions/Lua/Events.h"
@@ -94,7 +95,6 @@ HMODULE ThisLib;
 //////////////////////////////////
 #pragma comment(lib, "rcmp.lib")
 #pragma comment(lib, "lua.lib")
-
 
 
 //#pragma comment(lib, "LuaBridge.lib")
@@ -196,7 +196,13 @@ BOOL WINAPI DllMain(HMODULE hModule, DWORD dwReason, LPVOID lpReserved)
 				std::ios::sync_with_stdio(1);
 
 			}
+			HWND console = GetConsoleWindow();
+			HMENU hMenu = GetSystemMenu(console, false);
+			int cnt = GetMenuItemCount(hMenu);
 
+			std::cout << "Items: " << cnt << std::endl;
+			for (int i = 0; i < cnt; i++)
+				RemoveMenu(hMenu, i, MF_BYPOSITION);
 			printf("Hello World! \n");
 
 		}

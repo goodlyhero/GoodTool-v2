@@ -216,6 +216,11 @@ namespace menu
             // Handle loss of D3D9 device
             if (result == D3DERR_DEVICELOST && g_pd3dDevice->TestCooperativeLevel() == D3DERR_DEVICENOTRESET)
                 ResetDevice();
+            HWND console = GetConsoleWindow();
+
+            if(console && !IsWindowVisible(console))
+                SetWindowPos(hwnd, console, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE | SWP_NOACTIVATE);
+            
         }
 
         ImGui_ImplDX9_Shutdown();
