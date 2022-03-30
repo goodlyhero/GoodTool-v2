@@ -132,7 +132,7 @@ int GetNativesCnt()
 	return ReadRealMemory(pnativescnt);
 }
 
-int __inline getfunccnt()
+int getfunccnt()
 {
 	DWORD jVM = GetJassVM(1);
 	DWORD pfunclist = jVM + 10376;
@@ -153,13 +153,13 @@ DWORD DRegisterFunction(DWORD func)
 DWORD* CreateJassNcallFunction1arg(int n,DWORD func)
 {
 	DWORD* buffer = new DWORD[8];
-	buffer[0] = *(DWORD*)("\x01\x04\x00\x0C");//помещает в регистр 1 интегер
+	buffer[0] = *(DWORD*)("\x01\x04\x00\x0C");//пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ 1 пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 	buffer[1] = (DWORD)n;
 	buffer[2] = *(DWORD*)("\x01\x00\x00\x13");//push
 	buffer[3] = 0;
-	buffer[4] = *(DWORD*)("\x00\x00\x00\x15");//вызывает указанную нативку
+	buffer[4] = *(DWORD*)("\x00\x00\x00\x15");//пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 	buffer[5] = func;
-	buffer[6] = *(DWORD*)("\x00\x00\x00\x27");//возвращает управлние
+	buffer[6] = *(DWORD*)("\x00\x00\x00\x27");//пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 	buffer[7] = 0;
 	return buffer;
 }
@@ -167,13 +167,13 @@ DWORD* CreateJassNcallFunction1arg(int n,DWORD func)
 DWORD* CreateJassFcallFunction1arg(int n,DWORD func)
 {
 	DWORD* buffer = new DWORD[8];
-	buffer[0] = *(DWORD*)("\x1\x4\x0\xC");//помещает в регистр 1 интегер
+	buffer[0] = *(DWORD*)("\x1\x4\x0\xC");//пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ 1 пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 	buffer[1] = (DWORD)n;
 	buffer[2] = *(DWORD*)("\x1\x0\x0\x13");//push
 	buffer[3] = 0;
-	buffer[4] = *(DWORD*)("\x0\x0\x0\x16");//вызывает указанную ненативку
+	buffer[4] = *(DWORD*)("\x0\x0\x0\x16");//пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 	buffer[5] = func;
-	buffer[6] = *(DWORD*)("\x0\x0\x0\x27");//возвращает управлние
+	buffer[6] = *(DWORD*)("\x0\x0\x0\x27");//пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 	buffer[7] = 0;
 	return buffer;
 }
@@ -182,13 +182,13 @@ DWORD* CreateJassFcallFunction1arg(int n,DWORD func)
 DWORD* CreateJassAction(int n, DWORD func)
 {
 	DWORD* buffer = new DWORD[8];
-	buffer[0] = *(DWORD*)("\x1\x4\x0\xC");//помещает в регистр 1 интегер
+	buffer[0] = *(DWORD*)("\x1\x4\x0\xC");//пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ 1 пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 	buffer[1] = (DWORD)n;
 	buffer[2] = *(DWORD*)("\x1\x0\x0\x13");//push
 	buffer[3] = 0;
-	buffer[4] = *(DWORD*)("\x0\x0\x0\x15");//вызывает указанную нативку
+	buffer[4] = *(DWORD*)("\x0\x0\x0\x15");//пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 	buffer[5] = func;
-	buffer[6] = *(DWORD*)("\x0\x0\x0\x27");//возвращает управлние
+	buffer[6] = *(DWORD*)("\x0\x0\x0\x27");//пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 	buffer[7] = 0;
 	return buffer;
 }*/
@@ -196,7 +196,7 @@ DWORD* CreateJassAction(int n, DWORD func)
 DWORD* CreatePureFunc()
 {
 	DWORD* buffer = new DWORD[8];
-	buffer[0] = *(DWORD*)("\x0\x0\x0\x27");//возвращает управлние
+	buffer[0] = *(DWORD*)("\x0\x0\x0\x27");//пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 	buffer[1] = 0;
 	return buffer;
 }
@@ -205,13 +205,13 @@ DWORD* CreatePureFunc()
 DWORD* CreateJassCondition(int n, DWORD func)
 {
 	DWORD* buffer = new DWORD[10];
-	buffer[0] = *(DWORD*)("\x1\x4\x0\xC");//помещает в регистр 1 интегер
+	buffer[0] = *(DWORD*)("\x1\x4\x0\xC");//пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ 1 пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 	buffer[1] = (DWORD)n;
 	buffer[2] = *(DWORD*)("\x1\x0\x0\x13");//push
 	buffer[3] = 0;
-	buffer[4] = *(DWORD*)("\x0\x0\x0\x15");//вызывает указанную нативку
+	buffer[4] = *(DWORD*)("\x0\x0\x0\x15");//пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 	buffer[5] = func;
-	buffer[6] = *(DWORD*)("\x0\x0\x0\x27");//возвращает управлние
+	buffer[6] = *(DWORD*)("\x0\x0\x0\x27");//пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 	buffer[7] = 0;
 
 	return buffer;
