@@ -137,90 +137,89 @@ namespace menu
             }
             if (done)
                 break;
-
-            // Start the Dear ImGui frame
-            ImGui_ImplDX9_NewFrame();
-            ImGui_ImplWin32_NewFrame();
-            ImGui::NewFrame();
-
-            // 1. Show the big demo window (Most of the sample code is in ImGui::ShowDemoWindow()! You can browse its code to learn more about Dear ImGui!).
-            //if (show_demo_window)
-            //    ImGui::ShowDemoWindow(&show_demo_window);
-
-            // 2. Show a simple window that we create ourselves. We use a Begin/End pair to created a named window.
+            if (IsWindowVisible(hwnd))
             {
-                ImGui::Text("Editor");
-                ImGui::Checkbox("Local VM", &LocalMode);
-                ImGui::Checkbox("InstantRun", &InstantRun);
-                bool newbutton = ImGui::Button("Run Code");
-                if (!buttonmode && newbutton)
+                // Start the Dear ImGui frame
+                ImGui_ImplDX9_NewFrame();
+                ImGui_ImplWin32_NewFrame();
+                ImGui::NewFrame();
+
+                // 1. Show the big demo window (Most of the sample code is in ImGui::ShowDemoWindow()! You can browse its code to learn more about Dear ImGui!).
+                //if (show_demo_window)
+                //    ImGui::ShowDemoWindow(&show_demo_window);
+
+                // 2. Show a simple window that we create ourselves. We use a Begin/End pair to created a named window.
                 {
-                    lua::TLua* State;
-                    if (LocalMode)
+                    ImGui::Text("Editor");
+                    ImGui::Checkbox("Local VM", &LocalMode);
+                    ImGui::Checkbox("InstantRun", &InstantRun);
+                    if (ImGui::Button("Run Code"))
                     {
-                        State = lua::GetLocalState();
+                        lua::TLua* State;
+                        if (LocalMode)
+                        {
+                            State = lua::GetLocalState();
+                        }
+                        else
+                        {
+                            State = lua::GetGlobalState();
+                        }
+                        if (!State)
+                        {
+                            printf("Unable to access lua state: %s", (LocalMode ? "local" : "global"));
+                            goto IncorrectLuaState;
+                        }
+                        if (InstantRun)
+                        {
+                            State->DoStr(EditText, "Menu");
+                        }
+                        else
+                        {
+                            AddEvent(EVENT_CODE_RUN_LUA, (void*)LocalMode);
+                        }
                     }
-                    else
-                    {
-                        State = lua::GetGlobalState();
-                    }
-                    if (!State)
-                    {
-                        printf("Unable to access lua state: %s", (LocalMode ? "local" : "global"));
-                        goto IncorrectLuaState;
-                    }
-                    if (InstantRun)
-                    {
-                        State->DoStr(EditText,"Menu");
-                    }
-                    else
-                    {
-                        AddEvent(EVENT_CODE_RUN_LUA, (void*)LocalMode);
-                    }
+                IncorrectLuaState:
+
+                    ImGui::InputTextMultiline("Edit",
+                        EditText,
+                        EditSize,
+                        size
+                    );
                 }
-            IncorrectLuaState:
 
-                buttonmode == newbutton;
-                ImGui::InputTextMultiline("Edit",
-                    EditText,
-                    EditSize,
-                    size
-                );
+                // 3. Show another simple window.
+                //if (show_another_window)
+                //{
+                //    ImGui::Begin("Another Window", &show_another_window);   // Pass a pointer to our bool variable (the window will have a closing button that will clear the bool when clicked)
+                //    ImGui::Text("Hello from another window!");
+                //    if (ImGui::Button("Close Me"))
+                //        show_another_window = false;
+                //    ImGui::End();
+                //}
+
+                // Rendering
+                ImGui::EndFrame();
+                g_pd3dDevice->SetRenderState(D3DRS_ZENABLE, FALSE);
+                g_pd3dDevice->SetRenderState(D3DRS_ALPHABLENDENABLE, FALSE);
+                g_pd3dDevice->SetRenderState(D3DRS_SCISSORTESTENABLE, FALSE);
+                D3DCOLOR clear_col_dx = D3DCOLOR_RGBA((int)(clear_color.x * clear_color.w * 255.0f), (int)(clear_color.y * clear_color.w * 255.0f), (int)(clear_color.z * clear_color.w * 255.0f), (int)(clear_color.w * 255.0f));
+                g_pd3dDevice->Clear(0, NULL, D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER, clear_col_dx, 1.0f, 0);
+                if (g_pd3dDevice->BeginScene() >= 0)
+                {
+                    ImGui::Render();
+                    ImGui_ImplDX9_RenderDrawData(ImGui::GetDrawData());
+                    g_pd3dDevice->EndScene();
+                }
+                HRESULT result = g_pd3dDevice->Present(NULL, NULL, NULL, NULL);
+
+                // Handle loss of D3D9 device
+                if (result == D3DERR_DEVICELOST && g_pd3dDevice->TestCooperativeLevel() == D3DERR_DEVICENOTRESET)
+                    ResetDevice();
+                HWND console = GetConsoleWindow();
+
+                if (console && !IsWindowVisible(console))
+                    SetWindowPos(hwnd, console, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE | SWP_NOACTIVATE);
             }
-
-            // 3. Show another simple window.
-            //if (show_another_window)
-            //{
-            //    ImGui::Begin("Another Window", &show_another_window);   // Pass a pointer to our bool variable (the window will have a closing button that will clear the bool when clicked)
-            //    ImGui::Text("Hello from another window!");
-            //    if (ImGui::Button("Close Me"))
-            //        show_another_window = false;
-            //    ImGui::End();
-            //}
-
-            // Rendering
-            ImGui::EndFrame();
-            g_pd3dDevice->SetRenderState(D3DRS_ZENABLE, FALSE);
-            g_pd3dDevice->SetRenderState(D3DRS_ALPHABLENDENABLE, FALSE);
-            g_pd3dDevice->SetRenderState(D3DRS_SCISSORTESTENABLE, FALSE);
-            D3DCOLOR clear_col_dx = D3DCOLOR_RGBA((int)(clear_color.x * clear_color.w * 255.0f), (int)(clear_color.y * clear_color.w * 255.0f), (int)(clear_color.z * clear_color.w * 255.0f), (int)(clear_color.w * 255.0f));
-            g_pd3dDevice->Clear(0, NULL, D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER, clear_col_dx, 1.0f, 0);
-            if (g_pd3dDevice->BeginScene() >= 0)
-            {
-                ImGui::Render();
-                ImGui_ImplDX9_RenderDrawData(ImGui::GetDrawData());
-                g_pd3dDevice->EndScene();
-            }
-            HRESULT result = g_pd3dDevice->Present(NULL, NULL, NULL, NULL);
-
-            // Handle loss of D3D9 device
-            if (result == D3DERR_DEVICELOST && g_pd3dDevice->TestCooperativeLevel() == D3DERR_DEVICENOTRESET)
-                ResetDevice();
-            HWND console = GetConsoleWindow();
-
-            if(console && !IsWindowVisible(console))
-                SetWindowPos(hwnd, console, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE | SWP_NOACTIVATE);
-            
         }
 
         ImGui_ImplDX9_Shutdown();
