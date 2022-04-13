@@ -6,6 +6,7 @@ DWORD pGameDLL;
 DWORD dwStormDll;
 DWORD pEventEngine;
 HINSTANCE GoodToolDll;
+bool FromLoader = false;
 void InitBasicConstants()
 {
 	dwGameDll = (DWORD)GetModuleHandle("Game.dll");

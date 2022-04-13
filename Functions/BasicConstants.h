@@ -6,6 +6,7 @@ extern DWORD pGameDLL;
 extern DWORD dwStormDll;
 extern DWORD pEventEngine;
 extern HINSTANCE GoodToolDll;
+extern bool FromLoader;
 typedef unsigned int(pString);
 typedef int (integer);
 typedef unsigned int (jSTRING);

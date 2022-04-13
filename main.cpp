@@ -24,6 +24,7 @@
 #include <luamodule.h>
 #include <Properties.h>
 #include "Utilities/PeriodicEventData.h"
+#include "Utilities/Cleanup.h"
 import UnlimitMapSize;
 import ClassInfoGame;
 import EVENTS;
@@ -240,6 +241,14 @@ BOOL WINAPI DllMain(HMODULE hModule, DWORD dwReason, LPVOID lpReserved)
 		mlog::State("Lua initialized");
 		lua::InitEventHooks();
 		mlog::State("Event Hooks Initialized");
+		if (GetModuleHandleA("Loader.dll")!=NULL)
+		{
+			FromLoader = true;
+		}
+		else
+		{
+			FromLoader = false;
+		}
 		if ((GetModuleHandleA("Loader.dll") != NULL) && (!FileExists("GoodTool\\GOODTOOL_FORCE")))
 		{
 
@@ -271,6 +280,7 @@ BOOL WINAPI DllMain(HMODULE hModule, DWORD dwReason, LPVOID lpReserved)
 			wxEntryCleanup();
 		}
 		CloseLogs();
+		if(FromLoader) cleanup::Cleanup();
 		break;
 	}
 

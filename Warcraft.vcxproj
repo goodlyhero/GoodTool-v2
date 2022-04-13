@@ -75,7 +75,7 @@
     <LinkIncremental>false</LinkIncremental>
     <TargetExt>.dll</TargetExt>
     <TargetName>$(ProjectName)</TargetName>
-    <OutDir>$(SolutionDir)$(Configuration)\</OutDir>
+    <OutDir>$(SolutionDir)bin\</OutDir>
     <IncludePath>.\Utilities\ImGui\backends;.\Utilities\ImGui;.\Utilities\EVENT_INFO;.\3rd party\wx\lib\vc_lib;.\3rd party\wx\include\;.\3rd party\wx\include\msvc;.\3rd party\wxlua\include;.\3rd party\DreamUI;.\3rd party\rcmp\include;.\3rd party;.\Functions\Lua;.\Functions;.\Utilities;.\3rd party\lua\include;.\3rd party\LuaBridge-master\Source;.\3rd party\MinHook;.\3rd party\LuaBridge-master\Source\LuaBridge;$(IncludePath)</IncludePath>
     <LibraryPath>.\3rd party\MinHook;.\3rd party\wx\lib\vc_lib;.\3rd party\wx\lib;.\3rd party\wxlua\lib;.l\3rd party\DreamUI;.\3rd party\lua\;.\3rd party\rcmp\;.\3rd party\LuaBridge-master\LuaBridge\Debug;$(LibraryPath)</LibraryPath>
     <ReferencePath>$(VC_ReferencesPath_x86);</ReferencePath>

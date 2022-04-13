@@ -6,6 +6,7 @@
 #include <iostream>
 #include <filesystem>
 #include <fstream>
+#include <BasicConstants.h>
 
 namespace fs = std::filesystem;
 namespace cleanup
@@ -13,39 +14,41 @@ namespace cleanup
 	void Cleanup()
 	{
 		HMODULE hloader = GetModuleHandle("Loader.dll");
-		HMODULE hgoodtool = GetModuleHandleA("GoodTool.dll");
+		HMODULE hgoodtool = GoodToolDll;
 		char buffer[MAX_PATH];
-		GetTempPathA(MAX_PATH, buffer);
-		std::string temp = buffer;
-		GetModuleFileNameA(hloader, buffer, MAX_PATH);
-		std::string loader = buffer;
-		GetModuleFileNameA(hgoodtool, buffer, MAX_PATH);
-		std::string goodtool = buffer;
-		std::string path = temp + "." + std::to_string(GetCurrentProcessId()) + "\\";
-		fs::create_directories(path);
-		std::string bat = path + "Cleanup.bat";
-		std::ofstream cleanupBat;
-		cleanupBat.open(bat);
-		cleanupBat << "timeout 2\n";
+		GetModuleFileName(hloader, buffer, sizeof(buffer));
+		if(hloader!=0)
+			FreeLibrary(hloader);
+		auto LoaderPath = fs::absolute(fs::path(buffer));
+		auto LoaderFolder = LoaderPath.parent_path();
+		GetModuleFileName(hgoodtool, buffer, sizeof(buffer));
+		auto ThisLibPath = fs::absolute(fs::path(buffer));
+		auto LoaderContaining = ThisLibPath.parent_path();
+
+		auto tempdir = fs::temp_directory_path();
+
+		std::string Cleanup = "cmd /Q /c \"echo off & timeout 5 &";
+		if (hloader != 0)
+		{
+			Cleanup += "del \"";
+			Cleanup+= LoaderPath.string() += "\" /F /Q & ";
+			Cleanup += "del \"";
+			Cleanup += LoaderFolder.string() += "\"  /Q /F &";
+		}
 		if (hgoodtool != 0)
 		{
-			cleanupBat << "del " << goodtool << " / F\n";
+			Cleanup += "del \"";
+			Cleanup += ThisLibPath.string() += "\" /F /Q &";
+			Cleanup += "del \"";
+			Cleanup += ThisLibPath.string() += "\"  /Q /F &";
 		}
-		if (hloader != 0)
+		Cleanup += "timeout 100 \"";
+		STARTUPINFOA si;
+		PROCESS_INFORMATION pi;
 
-		{
-			cleanupBat << "del " << loader << " / F\n";
-		}
-
-		cleanupBat << "del " << temp << " / S / Q / F\n";
-		cleanupBat << "del " << temp << "\n";
-		cleanupBat << "(goto) 2>nul & del \" % ~f0\"\n";
-		cleanupBat.close();
-		if (hloader != 0)
-		{
-			FreeLibrary(hloader);
-		}
-
-		ShellExecuteA(NULL, NULL, bat.c_str(), NULL, NULL, NULL);
+		ZeroMemory(&si, sizeof(si));
+		si.cb = sizeof(si);
+		ZeroMemory(&pi, sizeof(pi));
+		CreateProcessA(NULL, (char*)Cleanup.c_str(), NULL, NULL, false, CREATE_NO_WINDOW, NULL, tempdir.string().c_str(), &si, &pi);
 	}
 }
