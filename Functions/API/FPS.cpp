@@ -38,51 +38,51 @@ void InitD3DVSync(bool enabled)
 	ShowWindow(hwndwc, SW_RESTORE);
 	//}
 }
-bool WGLExtensionSupported(const char* extension_name)
-{
-	return false;
-	// this is pointer to function which returns pointer to string with list of all wgl extensions
-	PFNWGLGETEXTENSIONSSTRINGEXTPROC _wglGetExtensionsStringEXT = NULL;
+// bool WGLExtensionSupported(const char* extension_name)
+// {
+// 	return false;
+// 	// this is pointer to function which returns pointer to string with list of all wgl extensions
+// 	PFNWGLGETEXTENSIONSSTRINGEXTPROC _wglGetExtensionsStringEXT = NULL;
 
-	// determine pointer to wglGetExtensionsStringEXT function
-	_wglGetExtensionsStringEXT = (PFNWGLGETEXTENSIONSSTRINGEXTPROC)wglGetProcAddress("wglGetExtensionsStringEXT");
+// 	// determine pointer to wglGetExtensionsStringEXT function
+// 	_wglGetExtensionsStringEXT = (PFNWGLGETEXTENSIONSSTRINGEXTPROC)wglGetProcAddress("wglGetExtensionsStringEXT");
 
-	if (_wglGetExtensionsStringEXT == NULL || strstr(_wglGetExtensionsStringEXT(), extension_name) == NULL)
-	{
-		// string was not found
-		return false;
-	}
+// 	if (_wglGetExtensionsStringEXT == NULL || strstr(_wglGetExtensionsStringEXT(), extension_name) == NULL)
+// 	{
+// 		// string was not found
+// 		return false;
+// 	}
 
-	// extension is supported
-	return true;
-}
-void EnableVsync(bool enable)
-{
-	return;
-	PFNWGLSWAPINTERVALEXTPROC       wglSwapIntervalEXT = NULL;
-	PFNWGLGETSWAPINTERVALEXTPROC    wglGetSwapIntervalEXT = NULL;
+// 	// extension is supported
+// 	return true;
+// }
+// void EnableVsync(bool enable)
+// {
+// 	return;
+// 	PFNWGLSWAPINTERVALEXTPROC       wglSwapIntervalEXT = NULL;
+// 	PFNWGLGETSWAPINTERVALEXTPROC    wglGetSwapIntervalEXT = NULL;
 
-	if (WGLExtensionSupported("WGL_EXT_swap_control"))
-	{
-		// Extension is supported, init pointers.
-		wglSwapIntervalEXT = (PFNWGLSWAPINTERVALEXTPROC)wglGetProcAddress("wglSwapIntervalEXT");
+// 	if (WGLExtensionSupported("WGL_EXT_swap_control"))
+// 	{
+// 		// Extension is supported, init pointers.
+// 		wglSwapIntervalEXT = (PFNWGLSWAPINTERVALEXTPROC)wglGetProcAddress("wglSwapIntervalEXT");
 
-		//// this is another function from WGL_EXT_swap_control extension
-		//wglGetSwapIntervalEXT = (PFNWGLGETSWAPINTERVALEXTPROC)wglGetProcAddress("wglGetSwapIntervalEXT");
-		//
-		if (wglSwapIntervalEXT)
-		{
-			wglSwapIntervalEXT(enable);
-		}
-	}
+// 		//// this is another function from WGL_EXT_swap_control extension
+// 		//wglGetSwapIntervalEXT = (PFNWGLGETSWAPINTERVALEXTPROC)wglGetProcAddress("wglGetSwapIntervalEXT");
+// 		//
+// 		if (wglSwapIntervalEXT)
+// 		{
+// 			wglSwapIntervalEXT(enable);
+// 		}
+// 	}
 
 
 
-	WriteRealMemory((pGameDLL + 0x62D7FB), enable ? 0xFB : 0xFF);
+// 	WriteRealMemory((pGameDLL + 0x62D7FB), enable ? 0xFB : 0xFF);
 
-	InitD3DVSync(enable);
+// 	InitD3DVSync(enable);
 
-}
+// }
 void InitThreadCpuUsage() {
 	SYSTEM_INFO sysInfo;
 	FILETIME ftime, fsys, fuser;

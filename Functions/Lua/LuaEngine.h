@@ -22,13 +22,11 @@ namespace lua
         rf::wrapper::LuaBinder* binder;
         std::string name;
         bool isowner;
-        bool wxinitialized;
         TLua(const char* _name, EventDispatcherBase* dispatcher);
         TLua(lua_State* lua_state, const char* _name, EventDispatcherBase* dispatcher);
         int refeventdata;
 
         ~TLua();
-        void InitWX();
         char* DoStr(const char* str);
         void DoStr(const char* str, const char* name);
         void DoFile(const char* str);

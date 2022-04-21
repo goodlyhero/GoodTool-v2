@@ -3,7 +3,7 @@ typedef long HRESULT;
 typedef unsigned long DWORD;
 HRESULT DownloadFile(const char* url, const char* file);
 bool CreateFolder(const char* path);
-bool DirExists(const char* dir);
+bool DirExists(const char*	dir);
 bool FileExistsC(const char* file);
 void CMessageBox(const char* msg, const char* name, DWORD style);
 void CMessageBoxAbort(const char* msg, const char* name);

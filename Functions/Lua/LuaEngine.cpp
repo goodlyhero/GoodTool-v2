@@ -1,6 +1,4 @@
 #include "LuaEngine.h"
-#include "luamodule.h"
-#include <wx/include/wx/app.h>
 #include <Logs\Log.h>
 constexpr const char* DISPATCHER_NAME = "__DISPATCHER";
 
@@ -80,7 +78,6 @@ namespace lua
             luaL_requiref(lua, "Event", luaopen_events, 1);
             mlog::Debug("Lua state was initialized");
             lua_settop(lua, top);
-            wxinitialized = false;
         }
 
         void LogErrors(const char* err)
@@ -109,14 +106,6 @@ namespace lua
                 {
                     lua_close(lua);
                 }
-            }
-        }
-         void TLua::InitWX()
-        {
-            if (!wxinitialized)
-            {
-                wxinitialized = true;
-                luaopen_wx(lua);
             }
         }
          char* TLua::DoStr(const char* str)

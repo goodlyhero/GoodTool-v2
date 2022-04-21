@@ -5,7 +5,6 @@
 #include <API/Frame/initframetypes.h>
 #include <../main.h>
 #include <DefineConstants.h>
-#include "../../3rd party/wxlua/include/luamodule.h"
 import JassLuaThreadInteraction;
 extern void lua::LuaInitCustomFunctions(lua::TLua& Lua);
 extern void lua::InitLuaJNatives(lua::TLua& Lua);
@@ -48,7 +47,6 @@ namespace lua
 			mlog::Debug("Default jass consts were defined in G");
 			//InitGlobalScripts(*GlobalState);
 			//mlog::Debug("Initialized global scripts in G");
-			//luaopen_wx(GlobalState->lua);
 		}
 		LocalState = new TLua("Local", &GeneralDispatcher);
 		mlog::Debug("L was initialized");
@@ -66,7 +64,6 @@ namespace lua
 			mlog::Debug("VK consts defined to L");
 			SetCommonJass(*LocalState);
 			mlog::Debug("Default jass consts were defined in L");
-			//luaopen_wx(LocalState->lua);
 		}
 	}
 

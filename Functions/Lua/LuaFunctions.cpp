@@ -13,7 +13,6 @@
 #include <Hook Text Messages.h>
 #include <map>
 #include <LuaBridge.h>
-#include <Properties.h>
 #include <Widescreen.h>
 #include <ShowSkillsForAllies.h>
 #include <Windows.h>
@@ -954,7 +953,6 @@ int LGetGameTickLen(lua_State* io_luaState)
 			binder->def("Int2Id", Int2Id);
 			binder->def("i2id", Int2Id);
 			binder->def("IntToHex", IntToHex);
-			binder->def("LoadMod", LoadMod);
 			FastBind(EnableWidescreen);
 			FastBind(SetCustomFovFix);
 			FastBind(ShowAllyPanel);

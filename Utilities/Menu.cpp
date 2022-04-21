@@ -2,7 +2,6 @@
 #include <Logs/Log.h>
 #include <PeriodicEventData.h>
 #include <LuaStates.h>
-#include <wx/include/wx/app.h>
 
 #include <imgui.h>
 #include <imgui_impl_dx9.h>

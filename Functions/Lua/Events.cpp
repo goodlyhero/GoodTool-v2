@@ -9,8 +9,6 @@
 #include <CNatives.h>
 #include <../main.h>
 #include <Cleanup.h>
-#include <wx/include/wx/app.h>
-#include <wxlua/include/luamodule.h>
 #include "Events.h"
 #include <LuaBridge.h>
 #include <sstream>
@@ -85,12 +83,6 @@ namespace lua
 			if (EVENT_SCREEN_UPDATE.IsActive())
 			{
 				EVENT_SCREEN_UPDATE.SendEvent(std::shared_ptr<EventData>(nullptr));
-			}
-			auto a = GetLuaModuleApp();
-			if (a != NULL)
-			{
-				a->MSWProcessPendingEventsIfNeeded();
-				
 			}
 			ProcessPeriodic();
 			original();

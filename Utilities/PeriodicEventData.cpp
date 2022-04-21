@@ -2,7 +2,6 @@
 #include <memory>
 #include <Menu.h>
 #include <lua/LuaStates.h>
-#include "Properties.h"
 #include "PeriodicEventData.h"
 #include "HookChat.h"
 #include <LuaFunctions.h>
@@ -125,16 +124,11 @@ bool ProcessEvent(pEvent_Data::PeriodicEventData::EventMSG* event)
 			auto b = lua::GetGlobalState();
 			if (b != NULL)
 			{
-				b->InitWX();
 			}
 			mlog::Debug("Hooking chat");
 			initChatHook();
-			mlog::Debug("Unlocked map size");
-			UnlockMapSize();
-			mlog::State("Loading settings");
-			LoadSettings();
-			mlog::State("Loading mods");
-			LoadMods();
+			//mlog::Debug("Unlocked map size");
+			//UnlockMapSize();
 			mlog::Debug("Initializing callbacks");
 			InitJassLuaCallbacks();
 			mlog::Debug("Initializing global scripts");

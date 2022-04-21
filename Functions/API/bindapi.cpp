@@ -1111,8 +1111,8 @@ void bindapi(lua::TLua& Lua)
 	FastBind(GetWidgetUnderCursor);
 	FastBind(SetMaxFps);
 	FastBind(InitD3DVSync);
-	FastBind(WGLExtensionSupported);
-	FastBind(EnableVsync);
+	//FastBind(WGLExtensionSupported);
+	//FastBind(EnableVsync);
 	FastBind(InitThreadCpuUsage);
 	FastBind(GetWar3CpuUsage);
 	FastBind(UpdateFPS);

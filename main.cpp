@@ -20,9 +20,6 @@
 #include "Functions/Lua/LuaStates.h"
 #include <Lua/LuaEngine.h>
 #include <From MemHack.h>
-#include <wx/app.h>
-#include <luamodule.h>
-#include <Properties.h>
 #include "Utilities/PeriodicEventData.h"
 #include "Utilities/Cleanup.h"
 import UnlimitMapSize;
@@ -41,58 +38,6 @@ HMODULE ThisLib;
 #pragma comment(lib, "Rpcrt4.lib")
 #pragma comment(lib, "Urlmon.lib")
 #pragma comment(lib, "Shell32.lib")
-//////////////////////////////////
-//#pragma comment(lib,"wxzlibd.lib
-//#pragma comment(lib ,"wxbase31.lib")
-#pragma comment(lib,"wxzlib.lib")
-//#pragma comment(lib,"wxtiffd.lib")
-#pragma comment(lib,"wxbase31_net.lib")
-#pragma comment(lib,"wxbase31_xml.lib")
-#pragma comment(lib,"wxexpat.lib")
-#pragma comment(lib,"wxbase31.lib")
-#pragma comment(lib,"wxtiff.lib")
-#pragma comment(lib,"wxjpeg.lib")
-//#pragma comment(lib,"wxjpegd.lib")
-//#pragma comment(lib,"wxscintillad.lib")
-//#pragma comment(lib,"wxmsw31.lib")
-//#pragma comment(lib,"wxmsw31ud_adv.lib")
-#pragma comment(lib,"wxscintilla.lib")
-//#pragma comment(lib,"wxmsw31ud_aui.lib")
-//#pragma comment(lib,"wxregexud.lib")
-//#pragma comment(lib,"wxmsw31ud_core.lib")
-#pragma comment(lib,"wxregex.lib")
-//#pragma comment(lib,"wxmsw31ud_gl.lib")
-//#pragma comment(lib,"wxexpatd.lib")
-//#pragma comment(lib,"wxmsw31ud_html.lib")
-//#pragma comment(lib,"wxpngd.lib")
-//#pragma comment(lib,"wxmsw31ud_media.lib")
-#pragma comment(lib,"wxpng.lib")
-//#pragma comment(lib,"wxmsw31ud_propgrid.lib")
-#pragma comment(lib,"wxmsw31_xrc.lib")
-//#pragma comment(lib,"wxmsw31ud_qa.lib")
-#pragma comment(lib,"wxmsw31_webview.lib")
-//#pragma comment(lib,"wxmsw31ud_ribbon.lib")
-#pragma comment(lib,"wxmsw31_stc.lib")
-//#pragma comment(lib,"wxmsw31ud_richtext.lib")
-#pragma comment(lib,"wxmsw31_richtext.lib")
-//#pragma comment(lib,"wxmsw31ud_stc.lib")
-#pragma comment(lib,"wxmsw31_ribbon.lib")
-//#pragma comment(lib,"wxmsw31ud_webview.lib")
-#pragma comment(lib,"wxmsw31_qa.lib")
-//#pragma comment(lib,"wxmsw31ud_xrc.lib")
-#pragma comment(lib,"wxmsw31_propgrid.lib")
-#pragma comment(lib,"wxmsw31_adv.lib")
-#pragma comment(lib,"wxmsw31_aui.lib")
-#pragma comment(lib,"wxmsw31_core.lib")
-#pragma comment(lib,"wxmsw31_gl.lib")
-#pragma comment(lib,"wxmsw31_html.lib")
-#pragma comment(lib,"wxmsw31_media.lib")
-//////////////////////////////////
-#pragma comment(lib, "wxlua-wx31mswu-3.1.0.0.lib")
-#pragma comment(lib, "wxlua_bind-wx31mswu-3.1.0.0.lib")
-#pragma comment(lib, "wxlua_debugger-wx31mswu-3.1.0.0.lib")
-#pragma comment(lib, "wxlua_debug-wx31mswu-3.1.0.0.lib")
-#pragma comment(lib, "wxlua.lib")
 //////////////////////////////////
 #pragma comment(lib, "rcmp.lib")
 #pragma comment(lib, "lua.lib")
@@ -272,13 +217,6 @@ BOOL WINAPI DllMain(HMODULE hModule, DWORD dwReason, LPVOID lpReserved)
 		break;
 	case (DLL_PROCESS_DETACH):
 		mlog::State("Detaching");
-		SaveProperties();
-		auto a = GetLuaModuleApp();
-		if (a != NULL)
-		{
-			a->OnExit();
-			wxEntryCleanup();
-		}
 		CloseLogs();
 		if(FromLoader) cleanup::Cleanup();
 		break;
