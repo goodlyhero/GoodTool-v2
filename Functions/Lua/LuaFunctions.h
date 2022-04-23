@@ -90,6 +90,24 @@ else\
 {\
 	return luaL_error(io_luaState, "function %s Argument#%d should be of bool type",__func__,number);\
 }
+
+#define _getfunccb(number,var,refhandler) \
+int var;\
+if (lua_isfunction(io_luaState, number))\
+{\
+	int top = lua_gettop(io_luaState);\
+	lua_settop(io_luaState, number);\
+	var = AddCallbackHandled(io_luaState, refhandler);\
+	lua_settop(io_luaState,top);\
+}\
+else if(lua_type(io_luaState,number)==LUA_TNIL)\
+{\
+	var = 0;\
+}\
+else\
+{\
+	return luaL_error(io_luaState, "function %s Argument#%d should be function or nill",__func__,number);\
+}
 namespace lua
 {
 	inline void InitGlobalScripts(TLua& Lua)

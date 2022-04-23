@@ -66,3 +66,19 @@ export DWORD FindJassNameHandle(const char* name)
 	int id = this_call(pGetJassNameHandle,ReadRealMemory(pGameState), (DWORD)name);
 	return id;
 }
+
+export DWORD FindJassNameHandleStupid(const char* name)
+{
+	int cnt = GetJassNamesCnt();
+	DWORD p = GetJassNamePlace();
+	if (p == NULL) return NULL;
+	for (int i = 1; i < cnt; i++)
+	{
+		char* c = (char*)ReadRealMemory(ReadRealMemory(p + 0x4 * i)+0x14);
+		//printf(c);
+		if (c != NULL && strcmp(name, c)==0)
+			return i;
+
+	}
+	return NULL;
+}

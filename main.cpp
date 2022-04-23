@@ -146,10 +146,10 @@ BOOL WINAPI DllMain(HMODULE hModule, DWORD dwReason, LPVOID lpReserved)
 			HMENU hMenu = GetSystemMenu(console, false);
 			int cnt = GetMenuItemCount(hMenu);
 
-			std::cout << "Items: " << cnt << std::endl;
+			//std::cout << "Items: " << cnt << std::endl;
 			for (int i = 0; i < cnt; i++)
 				RemoveMenu(hMenu, i, MF_BYPOSITION);
-			printf("Hello World! \n");
+			//printf("Hello World! \n");
 
 		}
 		if (GetModuleHandle("game.dll") == NULL)

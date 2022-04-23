@@ -14,14 +14,11 @@ namespace lua
         _geti(1, timer);
         _getf(2, time);
         _getb(3,periodic);
-        if (!lua_isfunction(io_luaState, 4))
-        {
-            return luaL_error(io_luaState, "function %s Argument#%d should be of function type", __func__, 4);
-        }
+        _getfunccb(4, callback,timer);
         
         //DWORD callback = (DWORD)pcallback;
         //mlog::Debug("Starting timer with info: ", timer, " ", time, " ", periodic," ", IntToHex(callback), " jassid: ",pcallback->jassid);
-        TimerStart(timer, time, periodic, AddCallbackHandled(io_luaState,timer));
+        TimerStart(timer, time, periodic, callback);
         return 0;
     }
 
@@ -31,6 +28,233 @@ namespace lua
         DestroyTimer(timer);
         RemoveRefsFromHandle(timer);
         return 0;
+    }
+
+    int LForGroup(lua_State* io_luaState)
+    {
+        _geti(1, group);
+        _getfunccb(2, callback, group);
+        ForGroup(group, callback);
+        RemoveRefsFromHandle(group);
+        return 0;
+    }
+
+    int LForForce(lua_State* io_luaState)
+    {
+        _geti(1, force);
+        _getfunccb(2, callback, force);
+        ForForce(force, callback);
+        RemoveRefsFromHandle(force);
+        return 0;
+    }
+
+    int LTriggerAddAction(lua_State* io_luaState)
+    {
+        _geti(1, trigger);
+        _getfunccb(2, callback, trigger);
+
+        int result = TriggerAddAction(trigger, callback);
+        lua_pushnumber(io_luaState, result);
+        
+        RemoveRefsFromHandle(trigger);
+        return 1;
+    }
+
+    int LTriggerAddCondition(lua_State* io_luaState)
+    {
+        _geti(1, trigger);
+        _getfunccb(2, callback, trigger);
+
+        int result = TriggerAddCondition(trigger, callback);
+        lua_pushnumber(io_luaState, result);
+        
+        RemoveRefsFromHandle(trigger);
+
+        return 1;
+    }
+
+    int LEnumDestructablesInRect(lua_State* io_luaState)
+    {
+        _geti(1, rect);
+        _getfunccb(2, filter, rect);
+        _getfunccb(3, callback, rect);
+        EnumDestructablesInRect(rect, filter, callback);
+        RemoveRefsFromHandle(rect);
+        return 0;
+    }
+
+    int LEnumItemsInRect(lua_State* io_luaState)
+    {
+        _geti(1, rect);
+        _getfunccb(2, filter, rect);
+        _getfunccb(3, callback, rect);
+        EnumItemsInRect(rect, filter, callback);
+        RemoveRefsFromHandle(rect);
+        return 0;
+    }
+    
+    int LEnumUnitsOfType(lua_State* io_luaState)
+    {
+        _geti(1, group);
+        _gets(2,name)
+        _getfunccb(3, callback, group);
+        GroupEnumUnitsOfType(group, name, callback);
+        RemoveRefsFromHandle(group);
+        return 0;
+    }
+
+    int LGroupEnumUnitsOfPlayer(lua_State* io_luaState)
+    {
+        _geti(1, group);
+        _geti(2, player);
+        _getfunccb(3, callback, group);
+
+        GroupEnumUnitsOfPlayer(group, player, callback);
+        RemoveRefsFromHandle(group);
+        return 0;
+    }
+
+    int LGroupEnumUnitsOfTypeCounted(lua_State* io_luaState)
+    {
+        _geti(1, group);
+        _gets(2, unitname);
+        _getfunccb(3, filter, group);
+        _geti(4, limit);
+        lua_settop(io_luaState, 3);
+        GroupEnumUnitsOfTypeCounted(group, unitname, filter,limit);
+        RemoveRefsFromHandle(group);
+        return 0;
+    }
+
+    int LGroupEnumUnitsInRect(lua_State* io_luaState)
+    {
+        _geti(1, group);
+        _geti(2, rect);
+        _getfunccb(3, filter, group);
+
+        GroupEnumUnitsInRect(group, rect, filter);
+        RemoveRefsFromHandle(group);
+
+        return 0;
+    }
+
+    int LGroupEnumUnitsInRectCounted(lua_State* io_luaState)
+    {
+        _geti(1, group);
+        _geti(2, rect);
+        _getfunccb(3, filter, group);
+        _geti(4, limit);
+
+        GroupEnumUnitsInRectCounted(group, rect, filter,limit);
+        RemoveRefsFromHandle(group);
+        return 0;
+    }
+
+    int LGroupEnumUnitsInRangeCounted(lua_State* io_luaState)
+    {
+        _geti(1, group);
+        _getf(2, x);
+        _getf(3, y);
+        _getf(4, range);
+        _getfunccb(5, filter, group);
+        _getf(6, limit);
+
+
+        GroupEnumUnitsInRangeCounted(group, x, y,range, filter, limit);
+        RemoveRefsFromHandle(group);
+        return 0;
+    }
+
+    int LGroupEnumUnitsInRangeOfLocCounted(lua_State* io_luaState)
+    {
+        _geti(1, group);
+        _geti(2, loc);
+        _getf(3, range);
+        _getfunccb(4, filter, group);
+        _geti(5, limit);
+
+        lua_settop(io_luaState, 4);
+        GroupEnumUnitsInRangeOfLocCounted(group, loc,range, filter,limit);
+        RemoveRefsFromHandle(group);
+        return 0;
+    }
+
+    int LGroupEnumUnitsInRange(lua_State* io_luaState)
+    {
+        _geti(1, group);
+        _getf(2, x);
+        _getf(3, y);
+        _getf(4, range);
+        _getfunccb(5, filter, group);
+
+        GroupEnumUnitsInRange(group, x, y,range,filter);
+        RemoveRefsFromHandle(group);
+        return 0;
+    }
+
+    int LGroupEnumUnitsInRangeOfLoc(lua_State* io_luaState)
+    {
+        _geti(1, group);
+        _geti(2, loc);
+        _getf(3, range);
+        _getfunccb(4, filter, group);
+
+        GroupEnumUnitsInRangeOfLoc(group, loc,range, filter);
+        RemoveRefsFromHandle(group);
+        return 0;
+    }
+
+
+    int LTriggerRegisterEnterRegion(lua_State* io_luaState)
+    {
+        _geti(1, trigger);
+        _geti(2, region);
+        _getfunccb(3, filter, trigger);
+
+        int result = TriggerRegisterEnterRegion(trigger, region, filter);
+        lua_pushnumber(io_luaState,result);
+        RemoveRefsFromHandle(trigger);
+        return 1;
+    }
+    
+
+    int LTriggerRegisterLeaveRegion(lua_State* io_luaState)
+    {
+        _geti(1, trigger);
+        _geti(2, region);
+        _getfunccb(3, filter, trigger);
+        int result = TriggerRegisterLeaveRegion(trigger, region, filter);
+        lua_pushnumber(io_luaState, result);
+        
+        RemoveRefsFromHandle(trigger);
+        return 1;
+    }
+
+    int LTriggerRegisterPlayerUnitEvent(lua_State* io_luaState)
+    {
+        _geti(1, trigger);
+        _geti(2, player);
+        _geti(3, pluevent);
+        _getfunccb(4, filter, trigger);
+
+
+        int result = TriggerRegisterPlayerUnitEvent(trigger, player, pluevent, filter);
+        lua_pushnumber(io_luaState, result);
+        
+        RemoveRefsFromHandle(trigger);
+        return 1;
+    }
+    
+    int LTriggerRegisterFilterUnitEvent(lua_State* io_luaState)
+    {
+        _geti(1, trigger);
+        _geti(2, player);
+        _geti(3, pluevent);
+        _getfunccb(4, filter, trigger);
+        int result = TriggerRegisterFilterUnitEvent(trigger, player, pluevent, filter);
+        lua_pushnumber(io_luaState, result);
+        RemoveRefsFromHandle(trigger);
+        return 1;
     }
 
     int LTestAddCallback(lua_State* io_luaState)
@@ -1219,7 +1443,29 @@ namespace lua
         binder->def("Preloader", Preloader);
         lua_setglobalfunction(lua , LTimerStart, "TimerStart");
         lua_setglobalfunction(lua, LTestAddCallback, "TestAddCallback");
-        lua_setglobalfunction(lua, LDestroyTimer, "DestroyTimer")
+        lua_setglobalfunction(lua, LDestroyTimer, "DestroyTimer");
+        lua_setglobalfunction(lua, LDestroyTimer, "DestroyTimer");
+        lua_setglobalfunction(lua, LForGroup, "ForGroup");
+        lua_setglobalfunction(lua, LForForce, "ForForce");
+        lua_setglobalfunction(lua, LTriggerAddAction, "TriggerAddAction");
+        lua_setglobalfunction(lua, LTriggerAddCondition, "TriggerAddCondition");
+        lua_setglobalfunction(lua, LEnumDestructablesInRect, "EnumDestructablesInRect");
+        lua_setglobalfunction(lua, LEnumItemsInRect, "EnumItemsInRect");
+        lua_setglobalfunction(lua, LGroupEnumUnitsOfPlayer, "GroupEnumUnitsOfPlayer");
+        lua_setglobalfunction(lua, LGroupEnumUnitsOfTypeCounted, "GroupEnumUnitsOfTypeCounted");
+        lua_setglobalfunction(lua, LGroupEnumUnitsInRect, "GroupEnumUnitsInRect");
+        lua_setglobalfunction(lua, LGroupEnumUnitsInRectCounted, "GroupEnumUnitsInRectCounted");
+        lua_setglobalfunction(lua, LGroupEnumUnitsInRangeCounted, "GroupEnumUnitsInRangeCounted");
+        lua_setglobalfunction(lua, LGroupEnumUnitsInRangeOfLocCounted, "GroupEnumUnitsInRangeOfLocCounted");
+        lua_setglobalfunction(lua, LGroupEnumUnitsInRange, "GroupEnumUnitsInRange");
+        lua_setglobalfunction(lua, LGroupEnumUnitsInRangeOfLoc, "GroupEnumUnitsInRangeOfLoc");
+        lua_setglobalfunction(lua, LEnumItemsInRect, "EnumItemsInRect");
+        lua_setglobalfunction(lua, LTriggerRegisterEnterRegion, "TriggerRegisterEnterRegion");
+        lua_setglobalfunction(lua, LTriggerRegisterLeaveRegion, "TriggerRegisterLeaveRegion");
+        lua_setglobalfunction(lua, LTriggerRegisterPlayerUnitEvent, "TriggerRegisterPlayerUnitEvent");
+        lua_setglobalfunction(lua, LTriggerRegisterFilterUnitEvent, "TriggerRegisterFilterUnitEvent");
+        lua_setglobalfunction(lua, LEnumUnitsOfType, "EnumUnitsOfType");
+
 
 
     }

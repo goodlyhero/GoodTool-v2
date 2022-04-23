@@ -215,7 +215,7 @@ void InitNativeConstants()
 	pJassEnvAddress = pGameDLL + 0xADA848;
 	dwGameState = dwGameDll + 0xAB65F4;
 	pGameState = dwGameDll + 0xAB65F4;
-	pConvertString = pGameDLL + 0x3BAA20;
+	//pConvertString = pGameDLL + 0x3BAA20;
 	pSearchStringValue = pGameDLL + 0x5C8ED0;
 	pSearchStringAddr1 = pGameDLL + 0xACD23C;
 	pSearchStringAddr2 = pGameDLL + 0xACD214;

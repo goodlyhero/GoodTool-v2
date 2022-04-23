@@ -9,12 +9,17 @@ const char* ConvertJString(DWORD string)
     return (const char*)this_call(pGetString, string);
 }
 
-pString ConvertNullTerminatedStringToString(integer pNullTerminatedString)
+pString ConvertString(integer pNullTerminatedString)
 {
     return (this_call(pConvertString, pNullTerminatedString));
 }
 
-pString ConvertNullTerminatedStringToString(const char* pNullTerminatedString)
+pString ConvertString(const char* pNullTerminatedString)
+{
+    return (this_call(pConvertString, (int)pNullTerminatedString));
+}
+
+DWORD LConvertString(const char* pNullTerminatedString)
 {
     return (this_call(pConvertString, (int)pNullTerminatedString));
 }
@@ -47,7 +52,7 @@ int SearchStringValueAddress(pString str)
 
 pString SearchStringValue(pString str)
 {
-    return ConvertNullTerminatedStringToString(SearchStringValueAddress(str));
+    return ConvertString(SearchStringValueAddress(str));
 }
 
 void ReplaceStringValue(pString str, integer newstraddress, integer str_len)
@@ -60,12 +65,12 @@ void ReplaceStringValue(pString str, integer newstraddress, integer str_len)
 
 pString RegStr(const char* NullTermStr)
 {
-    return GetString(ConvertNullTerminatedStringToString(NullTermStr));
+    return GetString(ConvertString(NullTermStr));
 }
 
 DWORD RegisterStr(const char* NullTermStr)
 {
-    return GetString(ConvertNullTerminatedStringToString(NullTermStr));
+    return GetString(ConvertString(NullTermStr));
 }
 
 void WriteNullTerminatedString(const char* s, int pAddr)

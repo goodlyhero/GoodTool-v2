@@ -654,6 +654,15 @@ int LGetGameTickLen(lua_State* io_luaState)
 		lua_pushinteger(io_luaState, (unsigned int)t);
 		return 2;
 	}
+	int LRegisterNative(lua_State* io_luaState)
+	{
+		_geti(1, ptr);
+		_gets(2, name);
+		_gets(3, sig);
+		DWORD t = RegisterNative(ptr, name, sig);
+		lua_pushinteger(io_luaState, t);
+		return 1;
+	}
 
 	int TestLuaToBoolean(lua_State* io_luaState)
 	{
@@ -956,5 +965,7 @@ int LGetGameTickLen(lua_State* io_luaState)
 			FastBind(EnableWidescreen);
 			FastBind(SetCustomFovFix);
 			FastBind(ShowAllyPanel);
+			FastBind(LConvertString);
+			Lua.RegFunction("RegisterNative", LRegisterNative);
 		}
 	}

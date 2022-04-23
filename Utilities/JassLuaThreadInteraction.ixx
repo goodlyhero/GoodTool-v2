@@ -25,8 +25,8 @@ bool isjhookenabled = false;
 #define THREAD_RESULT_OK 1
 #define THREAD_RESULT_Yield 3
 
-#define NATIVE_NAME_RunNow "NATIVE_RunNow"
-#define NATIVE_NAME_Restore "NATIVE_Restore"
+#define NATIVE_NAME_RunNow "NATIVERunNow"
+#define NATIVE_NAME_Restore "NATIVERestore"
 
 #define LUA_CALLBACKS_TABLE_NAME "_LUA_JASS_CALLBACKS"
 
@@ -149,7 +149,7 @@ namespace jcallbackcode
 		{
 			JCallback* callback = new JCallback;
 			//mlog::Debug("Created new callback");
-			callback->funcid = JIdThreadRun; //создаем новый коллбек.
+			callback->funcid = JIdThreadRun; //пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ.
 			//mlog::Debug("Native was setted for this callback");
 			int id;
 			if (callbackstorestore.size() > 0)
@@ -373,27 +373,13 @@ export void InitJassLuaCallbacks()
 	if (IsInGame())
 	{
 		mlog::Debug("In game, initializeing callbacks");
-		int id = FindJassNameHandle(NATIVE_NAME_RunNow);
-		if (id == 0)
-		{
-			mlog::Debug("Run now native was not initialized, initializing now");
-			mlog::Debug("Registring native: ",RegisterNative((DWORD)&jcallbackcode::NATIVE_RunNow, NATIVE_NAME_RunNow, "(I)B"));
-			mlog::Debug("Registring Name: ", NATIVE_NAME_RunNow);
-			RegisterStr(NATIVE_NAME_RunNow);
-			id = FindJassNameHandle(NATIVE_NAME_RunNow);
-			mlog::Debug("Finded id: ", id);
-		}
+		mlog::Debug("Run now native was not initialized, initializing now");
+		mlog::Debug("Registring native: ",RegisterNative((DWORD)&jcallbackcode::NATIVE_RunNow, NATIVE_NAME_RunNow, "(I)B"));
+		RegStr(NATIVE_NAME_RunNow);
+		JIdThreadRun = FindJassNameHandleStupid(NATIVE_NAME_RunNow);
+		mlog::Debug("Finded id: ", JIdThreadRun);
+
 		mlog::Debug("Run Now Native was initialized");
-		if (id != 0) JIdThreadRun = id;
-		id = FindJassNameHandle(NATIVE_NAME_Restore);
-		if (id == 0)
-		{
-			RegisterNative((DWORD)&jcallbackcode::NATIVE_Restore, NATIVE_NAME_Restore, "(I)B");
-			RegisterStr(NATIVE_NAME_Restore);
-			id = FindJassNameHandle(NATIVE_NAME_Restore);
-		}
-		if (id != 0) JIdThreadContinue = id;
-		mlog::Debug("Callbacks were initialized");
 	}
 }
 
