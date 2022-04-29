@@ -7,10 +7,7 @@ const char* len_field = "len";
 bool CallbackNativeInitialized = false;
 namespace lua
 {
-	DWORD GoodCallback2(DWORD local, DWORD id)
-	{
-
-	}
+	
 	export void InitLuaJassCode(TLua* state)
 	{
 		if (state == NULL) return;

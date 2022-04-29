@@ -9,7 +9,9 @@
 #include <d3d9.h>
 #include <tchar.h>
 #pragma comment(lib,"D3d9.lib")
-IMGUI_IMPL_API LRESULT ImGui_ImplWin32_WndProcHandler(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam);
+
+extern IMGUI_IMPL_API LRESULT ImGui_ImplWin32_WndProcHandler(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam);
+
 namespace menu
 {
     bool LocalMode;
@@ -69,7 +71,7 @@ namespace menu
     {
         WNDCLASSEX wc = { sizeof(WNDCLASSEX), CS_CLASSDC, WndProcIMGUI, 0L, 0L, GetModuleHandle(NULL), NULL, NULL, NULL, NULL, ("Menu"), NULL };
         ::RegisterClassEx(&wc);
-        HWND hwnd = ::CreateWindow(wc.lpszClassName, ("Menu"),WS_OVERLAPPED|WS_CAPTION|WS_THICKFRAME|WS_MINIMIZEBOX|WS_MAXIMIZEBOX, 100, 100, 1280, 800, NULL, NULL, wc.hInstance, NULL);
+        HWND hwnd = ::CreateWindow(wc.lpszClassName, ("Menu"), WS_DISABLED, 100, 100, 100, 100, NULL, NULL, wc.hInstance, NULL);
 
         // Initialize Direct3D
         if (!CreateDeviceD3D(hwnd))
@@ -79,22 +81,29 @@ namespace menu
             return 1;
         }
 
-        // Show the window
-        ::ShowWindow(hwnd, SW_SHOWDEFAULT);
+        // hide the window
+        ::ShowWindow(hwnd, SW_HIDE);
         ::UpdateWindow(hwnd);
 
         // Setup Dear ImGui context
         IMGUI_CHECKVERSION();
         ImGui::CreateContext();
         ImGuiIO& io = ImGui::GetIO(); (void)io;
-        //io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;     // Enable Keyboard Controls
+        io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;       // Enable Keyboard Controls
         //io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;      // Enable Gamepad Controls
+        io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;           // Enable Docking
+        io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;         // Enable Multi-Viewport / Platform Windows
+        //io.ConfigViewportsNoAutoMerge = true;
+        //io.ConfigViewportsNoTaskBarIcon = true;
 
         // Setup Dear ImGui style
         ImGui::StyleColorsDark();
-        //ImGui::StyleColorsClassic();
-
-        // Setup Platform/Renderer backends
+        ImGuiStyle& style = ImGui::GetStyle();
+        if (io.ConfigFlags & ImGuiConfigFlags_ViewportsEnable)
+        {
+            style.WindowRounding = 0.0f;
+            style.Colors[ImGuiCol_WindowBg].w = 1.0f;
+        }
         ImGui_ImplWin32_Init(hwnd);
         ImGui_ImplDX9_Init(g_pd3dDevice);
 
@@ -136,20 +145,15 @@ namespace menu
             }
             if (done)
                 break;
-            if (IsWindowVisible(hwnd))
             {
                 // Start the Dear ImGui frame
                 ImGui_ImplDX9_NewFrame();
                 ImGui_ImplWin32_NewFrame();
                 ImGui::NewFrame();
 
-                // 1. Show the big demo window (Most of the sample code is in ImGui::ShowDemoWindow()! You can browse its code to learn more about Dear ImGui!).
-                //if (show_demo_window)
-                //    ImGui::ShowDemoWindow(&show_demo_window);
-
                 // 2. Show a simple window that we create ourselves. We use a Begin/End pair to created a named window.
                 {
-                    ImGui::Text("Editor");
+                    //ImGui::Begin("Edit");
                     ImGui::Checkbox("Local VM", &LocalMode);
                     ImGui::Checkbox("InstantRun", &InstantRun);
                     if (ImGui::Button("Run Code"))
@@ -184,24 +188,16 @@ namespace menu
                         EditSize,
                         size
                     );
+                    //ImGui::End();
                 }
 
-                // 3. Show another simple window.
-                //if (show_another_window)
-                //{
-                //    ImGui::Begin("Another Window", &show_another_window);   // Pass a pointer to our bool variable (the window will have a closing button that will clear the bool when clicked)
-                //    ImGui::Text("Hello from another window!");
-                //    if (ImGui::Button("Close Me"))
-                //        show_another_window = false;
-                //    ImGui::End();
-                //}
 
                 // Rendering
                 ImGui::EndFrame();
                 g_pd3dDevice->SetRenderState(D3DRS_ZENABLE, FALSE);
                 g_pd3dDevice->SetRenderState(D3DRS_ALPHABLENDENABLE, FALSE);
                 g_pd3dDevice->SetRenderState(D3DRS_SCISSORTESTENABLE, FALSE);
-                D3DCOLOR clear_col_dx = D3DCOLOR_RGBA((int)(clear_color.x * clear_color.w * 255.0f), (int)(clear_color.y * clear_color.w * 255.0f), (int)(clear_color.z * clear_color.w * 255.0f), (int)(clear_color.w * 255.0f));
+                D3DCOLOR clear_col_dx = D3DCOLOR_RGBA((int)(clear_color.x * 255.0f), (int)(clear_color.y * 255.0f), (int)(clear_color.z * 255.0f), (int)(clear_color.w * 255.0f));
                 g_pd3dDevice->Clear(0, NULL, D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER, clear_col_dx, 1.0f, 0);
                 if (g_pd3dDevice->BeginScene() >= 0)
                 {
@@ -209,15 +205,21 @@ namespace menu
                     ImGui_ImplDX9_RenderDrawData(ImGui::GetDrawData());
                     g_pd3dDevice->EndScene();
                 }
+
+                // Update and Render additional Platform Windows
+                if (io.ConfigFlags & ImGuiConfigFlags_ViewportsEnable)
+                {
+                    ImGui::UpdatePlatformWindows();
+                    ImGui::RenderPlatformWindowsDefault();
+                }
+
                 HRESULT result = g_pd3dDevice->Present(NULL, NULL, NULL, NULL);
 
                 // Handle loss of D3D9 device
                 if (result == D3DERR_DEVICELOST && g_pd3dDevice->TestCooperativeLevel() == D3DERR_DEVICENOTRESET)
                     ResetDevice();
-                HWND console = GetConsoleWindow();
+                
 
-                if (console && !IsWindowVisible(console))
-                    SetWindowPos(hwnd, console, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE | SWP_NOACTIVATE);
             }
         }
 
@@ -268,10 +270,20 @@ namespace menu
         ImGui_ImplDX9_CreateDeviceObjects();
     }
 
+#ifndef WM_DPICHANGED
+#define WM_DPICHANGED 0x02E0 // From Windows SDK 8.1+ headers
+#endif
+
+    // Forward declare message handler from imgui_impl_win32.cpp
+   // extern IMGUI_IMPL_API LRESULT ImGui_ImplWin32_WndProcHandler(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
+
+    // Win32 message handler
     LRESULT WINAPI WndProcIMGUI(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
     {
         if (ImGui_ImplWin32_WndProcHandler(hWnd, msg, wParam, lParam))
+        {
             return true;
+        }
 
         switch (msg)
         {
@@ -288,13 +300,21 @@ namespace menu
                 return 0;
             break;
         case WM_DESTROY:
-            free(EditText);
-            EditText = NULL;
             ::PostQuitMessage(0);
             return 0;
+        case WM_DPICHANGED:
+            if (ImGui::GetIO().ConfigFlags & ImGuiConfigFlags_DpiEnableScaleViewports)
+            {
+                //const int dpi = HIWORD(wParam);
+                //printf("WM_DPICHANGED to %d (%.0f%%)\n", dpi, (float)dpi / 96.0f * 100.0f);
+                const RECT* suggested_rect = (RECT*)lParam;
+                ::SetWindowPos(hWnd, NULL, suggested_rect->left, suggested_rect->top, suggested_rect->right - suggested_rect->left, suggested_rect->bottom - suggested_rect->top, SWP_NOZORDER | SWP_NOACTIVATE);
+            }
+            break;
         }
         return ::DefWindowProc(hWnd, msg, wParam, lParam);
     }
+
 
 
 }

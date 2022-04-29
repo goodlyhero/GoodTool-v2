@@ -334,9 +334,6 @@
     <ClCompile Include="Utilities\ImGui\imgui_draw.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Utilities\ImGui\imgui_tables.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Utilities\ImGui\imgui_widgets.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -344,6 +341,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Utilities\ImGui\backends\imgui_impl_dx9.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Utilities\ImGui\Bool.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -672,8 +672,16 @@
     <ClInclude Include="Utilities\ImGui\backends\imgui_impl_dx9.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Utilities\ImGui\Bool.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Utilities\ImGui\bool_lua_binding.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="ntable.lua" />
+    <None Include="Utilities\ImGui\Bool.i" />
+    <None Include="Utilities\ImGui\imgui.i" />
   </ItemGroup>
 </Project>

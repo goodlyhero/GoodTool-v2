@@ -77,3 +77,14 @@ void WriteNullTerminatedString(const char* s, int pAddr)
 {
     WriteRealMemory(pAddr, (DWORD)s);
 }
+
+const char* GetRCstringValue(DWORD pRCString)
+{
+    if(pRCString==0) return NULL;
+    return (char*)ReadRealMemory(pRCString+0x1c);
+}
+const char* SetRCstringValue(DWORD pRCString)
+{
+    if(pRCString==0) return NULL;
+    return (char*)ReadRealMemory(pRCString+0x1c);
+}
