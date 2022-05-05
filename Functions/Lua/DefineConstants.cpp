@@ -4,9 +4,10 @@
 #include <LuaBridge.h>
 #include <LuaEngine.h>
 #include "Events.h"
-#include <From MemHack.h>
 #include <Widescreen.h>
 #include <EVENT_INFO.h>
+#include <API/KeyHook.h>
+#include <API/Unit/UnitNormal.h>
 
 import JassCommonConsts;
 import ClassInfoGameBase;

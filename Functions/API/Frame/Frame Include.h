@@ -19,3 +19,4 @@
 #include "CStatusBar.h"
 #include "CTextArea.h"
 #include "CTextFrame.h"
+#include "Anchors.h"

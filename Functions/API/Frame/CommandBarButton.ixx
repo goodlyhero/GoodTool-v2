@@ -1,5 +1,5 @@
-#include <From MemHack.h>
 #include <Windows.h>
+#include <Functions.h>
 export module CommandBarButton;
 
 bool IsCommandBarShown(DWORD pCommandBar)

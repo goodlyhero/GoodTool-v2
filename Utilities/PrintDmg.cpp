@@ -1,7 +1,5 @@
-#include <From MemHack.h>
 #include <CNatives.h>
 #include <string>
-
 bool printdmgmode = false;
 void PrintDmgMode(bool mode)
 {

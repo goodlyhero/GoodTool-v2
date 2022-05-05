@@ -11,8 +11,8 @@
 #include <LuaBridge.h>
 #include <LuaStates.h>
 #include <States.h>
-#include <From MemHack.h>
 #include <set>
+#include <API/Memory/Memory.h>
 extern T_RegisterNative RegisterNative;
 export module JassLuaThreadInteraction;
 import JassNamesMemory;

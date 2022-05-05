@@ -3,7 +3,8 @@
 #include <Functions.h>
 #include <fstream>
 #include <Warcraft Functions.h>
-#include <From MemHack.h>
+#include <Additional Native Constants.h>
+#include <API/Memory/Memory.h>
 
 
 namespace TestCommands

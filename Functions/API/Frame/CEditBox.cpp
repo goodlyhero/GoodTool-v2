@@ -2,7 +2,8 @@
 #include <Functions.h>
 #include <BasicConstants.h>
 #include <Additional Native Constants.h>
-#include <From MemHack.h>
+#include <Calls.h>
+#include <API/Memory/MemoryGameUI.h>
 
 DWORD SetCEditBoxFocus(DWORD pFrame, bool flag)
 {

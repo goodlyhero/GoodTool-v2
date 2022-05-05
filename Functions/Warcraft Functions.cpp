@@ -229,3 +229,8 @@ void UnlockChat()
 	PatchSecure(dwGameDll + 0x2FDB59, "\xEB\x08", 2);
 }
 
+
+int FirstLocalSelected()
+{
+	return ObjectToHandleId(GetLocalSelectedRealUnit());
+}

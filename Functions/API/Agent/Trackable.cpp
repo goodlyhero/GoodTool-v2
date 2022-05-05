@@ -2,7 +2,9 @@
 #include <Functions.h>
 #include <BasicConstants.h>
 #include <Additional Native Constants.h>
-#include <From MemHack.h>
+#include <Calls.h>
+#include <API/Memory/MemoryObjectData.h>
+#include <API/Memory/MemoryGameData.h>
 
 bool IsTrackableHidden(jHANDLE track)
 {

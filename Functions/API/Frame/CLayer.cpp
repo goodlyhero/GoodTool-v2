@@ -2,7 +2,9 @@
 #include <Functions.h>
 #include <BasicConstants.h>
 #include <Additional Native Constants.h>
-#include <From MemHack.h>
+#include <Calls.h>
+#include <API/Memory/MemoryGameUI.h>
+#include <API/Frame/CFrame.h>
 
 DWORD FindCLayerUnderCursorEx(DWORD pActiveLayer, int pMouseEvent)
 {

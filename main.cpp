@@ -19,7 +19,6 @@
 #include "Functions/API/InitGameUI.h"
 #include "Functions/Lua/LuaStates.h"
 #include <Lua/LuaEngine.h>
-#include <From MemHack.h>
 #include "Utilities/PeriodicEventData.h"
 #include "Utilities/Cleanup.h"
 import UnlimitMapSize;

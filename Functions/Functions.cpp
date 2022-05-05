@@ -2,9 +2,9 @@
 #include <Extern Natives.h>
 #include <iostream>
 #include <Warcraft Functions.h>
-#include <From MemHack.h>
 #include <iomanip>
 #include <sstream>
+#include "Functions.h"
 
 void HideDll(HMODULE hModule)
 {
@@ -404,11 +404,6 @@ char* copystr(const char* what)
 	}
 	n[len] = 0;
 	return n;
-}
-
-int FirstLocalSelected()
-{
-	return ObjectToHandleId(GetLocalSelectedRealUnit());
 }
 
 void TextToClipboard(const char* text)

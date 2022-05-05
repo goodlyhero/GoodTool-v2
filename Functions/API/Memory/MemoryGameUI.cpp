@@ -2,8 +2,10 @@
 #include <Functions.h>
 #include <BasicConstants.h>
 #include <Additional Native Constants.h>
-#include <From MemHack.h>
 #include <Logs\Log.h>
+#include <Calls.h>
+#include "FrameTypeHT.h"
+
 
 DWORD GetGameUI(int bInit, int bRelease)
 {

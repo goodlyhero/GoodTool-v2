@@ -2,7 +2,11 @@
 #include <Windows.h>
 #include <Functions.h>
 #include <Additional Native Constants.h>
-#include <From MemHack.h>
+#include <Calls.h>
+#include <API/Memory/MemoryGameUI.h>
+#include <API/Memory/MemoryStormDLL.h>
+#include <API/Frame/Frame.h>
+#include "CFrame.h"
 
 DWORD CreateCSimpleFrame(DWORD pParent)
 {

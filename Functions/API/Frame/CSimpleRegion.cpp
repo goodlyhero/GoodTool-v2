@@ -2,7 +2,9 @@
 #include <Windows.h>
 #include <Functions.h>
 #include <Additional Native Constants.h>
-#include <From MemHack.h>
+#include <Calls.h>
+#include <API/Memory/MemoryGameUI.h>
+#include <API/Memory/MemoryObjectData.h>
 
 int SetCSimpleRegionVertexColour(DWORD pFrame, int colour)
 {

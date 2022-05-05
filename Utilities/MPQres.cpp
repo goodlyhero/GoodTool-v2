@@ -1,11 +1,14 @@
 #define _SILENCE_EXPERIMENTAL_FILESYSTEM_DEPRECATION_WARNING
 #include <Windows.h>
-#include <From MemHack.h>
 #include <wininet.h>
 #include <string>
 #include <iostream>
 #include <filesystem>
 #include <Logs/Log.h>
+#include <API/Memory/MemoryStormDLL.h>
+#include <API/Memory/MemoryMPQ.h>
+#include <API/WindowsApi funcs.h>
+#include <Functions.h>
 namespace fs = std::filesystem;
 struct mpqres
 {

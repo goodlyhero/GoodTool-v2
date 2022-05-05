@@ -6,7 +6,6 @@
 #include "LuaStates.h"
 #include <Calls.h>
 #include <CNatives.h>
-#include <From MemHack.h>
 #include <Jass Natives.h>
 #include <Extern Natives.h>
 #include <luabinder.hpp>
@@ -16,6 +15,7 @@
 #include <Widescreen.h>
 #include <ShowSkillsForAllies.h>
 #include <Windows.h>
+
 
 import JassLuaThreadInteraction;
 #define FastBind(x) binder->def(#x,x)

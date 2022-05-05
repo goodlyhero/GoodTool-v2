@@ -2,8 +2,8 @@
 #include <Functions.h>
 #include <BasicConstants.h>
 #include <Additional Native Constants.h>
-#include <From MemHack.h>
 #include <CNatives.h>
+#include <Calls.h>
 
 int GetUnitAbilityReal(int pUnit, int aid, int unk1, int unk2, int unk3, int unk4)
 {
@@ -105,8 +105,8 @@ float GetUnitAbilityCooldownStamp(jHANDLE u, int aid)
 
 float GetUnitAbilityCurrentCooldown(jHANDLE u, int aid)
 {
-    //This value holds the base cooldown of the ability at the last time it was casted. It’s used to calculate the % of elapsed cooldown.
-    //This is completely irrelevant for the gameplay, it’s used only to determine which frame of the cooldown model will be displayed.
+    //This value holds the base cooldown of the ability at the last time it was casted. Itï¿½s used to calculate the % of elapsed cooldown.
+    //This is completely irrelevant for the gameplay, itï¿½s used only to determine which frame of the cooldown model will be displayed.
     return GetAddressAbilityCurrentCooldown(GetUnitAbility(u, aid));
 }
 
@@ -147,7 +147,7 @@ void SetUnitAbilityCastTime(jHANDLE u, int aid, float r)
 
 void SetUnitAbilityDisabled(jHANDLE u, int aid, int count)
 {
-    // not safe unless used with PauseUnit. Button will be blacked, but current casts of that ability won’t be interrupted.
+    // not safe unless used with PauseUnit. Button will be blacked, but current casts of that ability wonï¿½t be interrupted.
     SetAddressAbilityDisabled(GetUnitAbility(u, aid), count);
 }
 
@@ -158,7 +158,7 @@ int GetUnitAbilityDisabled(jHANDLE u, int aid)
 
 void SetUnitAbilityHidden(jHANDLE u, int aid, int count)
 {
-    // This one is 100% safe. This hides the ability button, && order can’t be issued.
+    // This one is 100% safe. This hides the ability button, && order canï¿½t be issued.
     SetAddressAbilityHidden(GetUnitAbility(u, aid), count); // -1 = unhide | 1 = hide;
 }
 

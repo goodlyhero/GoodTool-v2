@@ -1,4 +1,5 @@
-#include <From MemHack.h>
+#include <Functions.h>
+#include <Calls.h>
 #include <Additional Native Constants.h>
 export module APITimerEx;
 

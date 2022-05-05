@@ -2,7 +2,8 @@
 #include <Functions.h>
 #include <BasicConstants.h>
 #include <Additional Native Constants.h>
-#include <From MemHack.h>
+#include <API/Memory/MemoryGameData.h>
+#include <API/Memory/MemoryObjectData.h>
 
 bool IsEffectHidden(jHANDLE e)
 {

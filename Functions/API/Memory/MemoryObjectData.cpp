@@ -2,9 +2,9 @@
 #include <Functions.h>
 #include <BasicConstants.h>
 #include <Additional Native Constants.h>
-#include <From MemHack.h>
 #include <cmath>
 #include <Deg2Rad.h>
+#include <Calls.h>
 
 int GetARGBColour(char alpha, char red, char green, char blue)
 {

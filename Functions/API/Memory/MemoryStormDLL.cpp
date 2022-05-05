@@ -2,7 +2,6 @@
 #include <Functions.h>
 #include <BasicConstants.h>
 #include <Additional Native Constants.h>
-#include <From MemHack.h>
 #include <Calls.h>
 #include <Logs/Log.h>
 #include <list>

@@ -2,8 +2,9 @@
 #include <Functions.h>
 #include <BasicConstants.h>
 #include <Additional Native Constants.h>
-#include <From MemHack.h>
+#include <API/Memory/MemoryGameUI.h>
 #include <Logs/Log.h>
+#include <API/Memory/FrameTypeHT.h>
 
 bool IsCommandButton(DWORD pButton)
 {

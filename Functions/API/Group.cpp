@@ -2,8 +2,8 @@
 #include <Functions.h>
 #include <BasicConstants.h>
 #include <Additional Native Constants.h>
-#include <From MemHack.h>
 #include <CNatives.h>
+#include <Calls.h>
 
 DWORD GetAddressGroupUnitCount(DWORD pObj)
 {

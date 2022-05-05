@@ -3,7 +3,6 @@
 #include "rcmp.hpp"
 #include <DmgEventData.h>
 #include <PeriodicEventData.h>
-#include <From MemHack.h>
 #include <Windows.h>
 #include <PrintDmg.h>
 #include <CNatives.h>

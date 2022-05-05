@@ -2,7 +2,8 @@
 #include <Windows.h>
 #include <Functions.h>
 #include <Additional Native Constants.h>
-#include <From MemHack.h>
+#include <Calls.h>
+#include <API/Memory/MemoryGameUI.h>
 
 int SetCSimpleStatusBarTexture(DWORD pFrame, const char* texturepath, bool flag)
 {

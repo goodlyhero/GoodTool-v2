@@ -22,7 +22,6 @@ void ApplyGroupForSelection(int SelectionGroup);
 int GetIntFromString(const char* enterefString);
 char* newstr(const char* a, const char* b);
 char* copystr(const char* what);
-int FirstLocalSelected();
 void TextToClipboard(const char* text);
 std::string Int2Id(int i);
 std::string IntToHex(DWORD i);

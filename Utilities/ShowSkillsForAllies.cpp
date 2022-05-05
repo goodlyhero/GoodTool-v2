@@ -1,8 +1,9 @@
 #include <ShowSkillsForAllies.h>
-#include <Calls.h>
 #include <CNatives.h>
 #include <rcmp.hpp>
-#include <From MemHack.h>
+#include <Calls.h>
+#include <Additional Native Constants.h>
+#include <Functions.h>
 
 bool ispanelshown = false;
 bool ispanelhooked = false;

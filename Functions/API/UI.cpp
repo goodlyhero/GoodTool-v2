@@ -2,8 +2,12 @@
 #include <Functions.h>
 #include <BasicConstants.h>
 #include <Additional Native Constants.h>
-#include <From MemHack.h>
 #include <Functions.h>
+#include <API/Memory/MemoryGameData.h>
+#include <API/Memory/MemoryGameUI.h>
+#include <API/Frame/Frame Include.h>
+#include <API/Memory/MemoryGameWindow.h>
+#include <Calls.h>
 
 int SetUIFramePoint(int pFrame, int point, int pParentFrame, int relativePoint, float x, float y)
 {

@@ -1,6 +1,6 @@
 #include <Functions.h>
 #include "LuaEngine.h"
-#include <From MemHack.h>
+#include <API/Memory/Memory.h>
 import APIIterators;
 export module LuaApiFuncs;
 

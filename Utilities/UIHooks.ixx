@@ -1,10 +1,10 @@
 #include <rcmp.hpp>
 #include <BasicConstants.h>
 #include <Additional Native Constants.h>
-#include <From MemHack.h>
 #include <Functions.h>
 #include <String>
 #include <CNatives.h>
+import CIconCover;
 export module UIHooks;
 int saveeax;
 char buffer[4000];

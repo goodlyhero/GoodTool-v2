@@ -1,5 +1,5 @@
-#include <From MemHack.h>
 #include <Logs/Log.h>
+#include <API/Memory/MemoryGameUIButton.h>
 void initframetypes()
 {
 	AddFrameType("CBackdropFrame", 1, 0x96F3F4, 0x96F3CC);

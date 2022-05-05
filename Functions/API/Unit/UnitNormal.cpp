@@ -1,6 +1,9 @@
-#include <From MemHack.h>
 #include <CNatives.h>
 #include <cmath>
+#include <Calls.h>
+#include <Additional Native Constants.h>
+#include <Functions.h>
+
 import JassCommonConsts;
 
 int GetUnitTypeIdReal(DWORD u)
