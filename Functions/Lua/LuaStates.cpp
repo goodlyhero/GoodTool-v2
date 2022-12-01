@@ -45,6 +45,7 @@ namespace lua
 			mlog::Debug("VK consts defined to G");
 			SetCommonJass(*GlobalState);
 			mlog::Debug("Default jass consts were defined in G");
+
 			//InitGlobalScripts(*GlobalState);
 			//mlog::Debug("Initialized global scripts in G");
 		}

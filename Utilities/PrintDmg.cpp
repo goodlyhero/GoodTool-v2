@@ -1,7 +1,7 @@
 #include <CNatives.h>
 #include <string>
-bool printdmgmode = false;
-void PrintDmgMode(bool mode)
+int printdmgmode = 0;
+void PrintDmgMode(int mode)
 {
 	printdmgmode = mode;
 }
@@ -9,7 +9,7 @@ void PrintDmgMode(bool mode)
 
 void printdmg(DWORD hTarget, float amount)
 {
-	if (!printdmgmode) return;
+	if (printdmgmode==0) return;
 	
 	if (fabs(amount) > 0.4 && IsVisibleToPlayer(GetUnitX(hTarget), GetUnitY(hTarget), GetLocalPlayer()))
 	{

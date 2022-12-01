@@ -89,21 +89,24 @@ namespace lua
 		rcmp::hook_function<DWORD(__thiscall*)(DWORD it, DWORD* dmgeventdata1, DWORD* dmgeventdata2, DWORD param_3, DWORD param_4)>(dwGameDll + 0x2a40d0, [](auto original, DWORD it, DWORD* dmgeventdata1, DWORD* dmgeventdata2, DWORD param_3, DWORD param_4) {
 			//EventDataUnitDamaged data((int&)dmgeventdata2[0], (int&)it, (int&)dmgeventdata2[3], (int&)dmgeventdata2[8], (int&)dmgeventdata2[5], (float&)(((float*)(dmgeventdata2))[4]));
 			//std::shared_ptr< EventData> event = std::shared_ptr< EventData>(&data);
+			float dmg = (float&)(((float*)(dmgeventdata2))[4]);
 			if (EVENT_UNIT_DAMAGED.IsActive())
 			{
-			auto event = std::make_shared< EventDataUnitDamaged>((int&)dmgeventdata2[0], (int&)it, (int&)dmgeventdata2[3], (int&)dmgeventdata2[8], (int&)dmgeventdata2[5], (float&)(((float*)(dmgeventdata2))[4]));
+			auto event = std::make_shared< EventDataUnitDamaged>((int&)dmgeventdata2[0], (int&)it, (int&)dmgeventdata2[3], (int&)dmgeventdata2[8], (int&)dmgeventdata2[5], dmg);
 			EVENT_UNIT_DAMAGED.SendEvent(event);
 			}
-			DWORD target;
+			DWORD target = ObjectToHandleId(it);
+			if (printdmgmode == 2) {
+				printdmg(target, dmg);
+			}
 			float live1;
 			float live2;
-			if (printdmgmode)
+			if (printdmgmode==1)
 			{
-				target = GetTargetHandle();
 				live1 = GetWidgetLife(target);
 			}
 			DWORD ret = original(it, dmgeventdata1, dmgeventdata2, param_3, param_4);
-			if (printdmgmode)
+			if (printdmgmode==1)
 			{
 				live2 = GetWidgetLife(target);
 				printdmg(target, live2 - live1);

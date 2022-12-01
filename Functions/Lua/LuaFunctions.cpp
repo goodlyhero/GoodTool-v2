@@ -15,6 +15,7 @@
 #include <Widescreen.h>
 #include <ShowSkillsForAllies.h>
 #include <Windows.h>
+//#include "LNet.hpp"
 
 
 import JassLuaThreadInteraction;
@@ -859,6 +860,7 @@ int LGetGameTickLen(lua_State* io_luaState)
 		lua_pushnumber(l, GetTickCount64());
 		return 1;
 	}
+
 	namespace lua
 	{
 		void LuaInitCustomFunctions(lua::TLua& Lua)
@@ -966,6 +968,10 @@ int LGetGameTickLen(lua_State* io_luaState)
 			FastBind(SetCustomFovFix);
 			FastBind(ShowAllyPanel);
 			FastBind(LConvertString);
+			FastBind(system);
+			//FastBind(Post);
+			/*FastBind(Post1F);
+			FastBind(Post2F);*/
 			Lua.RegFunction("RegisterNative", LRegisterNative);
 		}
 	}

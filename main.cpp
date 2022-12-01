@@ -41,7 +41,6 @@ HMODULE ThisLib;
 #pragma comment(lib, "rcmp.lib")
 #pragma comment(lib, "lua.lib")
 
-#pragma comment(lib,"curl.lib")
 
 
 //#pragma comment(lib, "LuaBridge.lib")

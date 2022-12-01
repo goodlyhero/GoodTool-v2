@@ -1,6 +1,6 @@
 #pragma once
 
 #include <Windows.h>
-void PrintDmgMode(bool mode);
+void PrintDmgMode(int mode);
 void printdmg(DWORD hTarget, float amount);
-extern bool printdmgmode;
+extern int printdmgmode;

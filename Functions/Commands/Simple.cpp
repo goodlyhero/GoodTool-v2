@@ -21,7 +21,7 @@ int EnableDmgPrint(char* enteredString)
 		return 1;
 	}
 	PrintDmgMode(value);
-	TextPrint(value == false?"Dmg Printing was disabled":"Dmg Printing was enabled");
+	TextPrint(value == 0?"Dmg Printing was disabled":"Dmg Printing was enabled");
 	return 0;
 }
 
