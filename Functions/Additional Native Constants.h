@@ -240,5 +240,8 @@ extern DWORD pOnTick;
 extern DWORD pGetEngineDataPointers;
 extern DWORD pEnumObjectsInRange;
 extern DWORD pEnumObjectsInRect;
+
+extern DWORD pExtendedTickHook;
+extern DWORD pExtendedTickHookRet;
 //Init
 void InitNativeConstants();

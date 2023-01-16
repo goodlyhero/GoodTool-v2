@@ -1,10 +1,14 @@
 #include <Windows.h>
+#include <filesystem>
 #include <Extern Natives.h>
 #include <iostream>
 #include <Warcraft Functions.h>
 #include <iomanip>
 #include <sstream>
 #include "Functions.h"
+
+#include <zip.h>
+#pragma comment(lib,"zip.lib")
 
 void HideDll(HMODULE hModule)
 {
@@ -481,3 +485,21 @@ DWORD SetRealIntoMemory(float a)
 	float* b = &a;
 	return *(DWORD*)b;
 }
+
+bool ZipFile(const char* source, const char* target)
+{
+	namespace fs = std::filesystem;
+	if (!fs::exists(source)) return false;
+	auto path = fs::path(source);
+	struct zip_t* zip = zip_open(target, ZIP_DEFAULT_COMPRESSION_LEVEL, 'w');
+	{
+		zip_entry_open(zip, path.filename().string().c_str());
+		{
+			const char* buf = "Some data here...\0";
+			zip_entry_fwrite(zip,source);
+		}
+		zip_entry_close(zip);
+	}
+	zip_close(zip);
+}
+

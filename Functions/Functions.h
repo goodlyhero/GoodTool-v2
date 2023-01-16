@@ -90,3 +90,4 @@ inline float GetRealFromMemory(DWORD f)
 std::string i642s(unsigned long i);
 DWORD GetProc(DWORD handle, DWORD ord);
 BOOL PlantDetourJMP(BYTE* source, const BYTE* destination, size_t length);
+bool ZipFile(const char* source, const char* target);

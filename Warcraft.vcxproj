@@ -77,13 +77,13 @@
     <TargetName>$(ProjectName)</TargetName>
     <OutDir>$(SolutionDir)bin\</OutDir>
     <IncludePath>.\Utilities\ImGui\backends;.\Utilities\ImGui;.\Utilities\EVENT_INFO;.\3rd party\wx\lib\vc_lib;.\3rd party\wx\include\;.\3rd party\wx\include\msvc;.\3rd party\wxlua\include;.\3rd party\DreamUI;.\3rd party\rcmp\include;.\3rd party;.\Functions\Lua;.\Functions;.\Utilities;.\3rd party\lua\include;.\3rd party\LuaBridge-master\Source;.\3rd party\MinHook;.\3rd party\LuaBridge-master\Source\LuaBridge;$(IncludePath)</IncludePath>
-    <LibraryPath>.\3rd party\MinHook;.\3rd party\wx\lib\vc_lib;.\3rd party\wx\lib;.\3rd party\wxlua\lib;.l\3rd party\DreamUI;.\3rd party\lua\;.\3rd party\rcmp\;.\3rd party\LuaBridge-master\LuaBridge\Debug;$(LibraryPath)</LibraryPath>
+    <LibraryPath>.\3rd party\zip\build\Release;.\3rd party\MinHook;.\3rd party\wx\lib\vc_lib;.\3rd party\wx\lib;.\3rd party\wxlua\lib;.l\3rd party\DreamUI;.\3rd party\lua\;.\3rd party\rcmp\;.\3rd party\LuaBridge-master\LuaBridge\Debug;$(LibraryPath)</LibraryPath>
     <ReferencePath>$(VC_ReferencesPath_x86);</ReferencePath>
     <ExecutablePath>$(VC_ExecutablePath_x86);$(CommonExecutablePath)</ExecutablePath>
     <LibraryWPath>$(LibraryWPath)</LibraryWPath>
     <SourcePath>.\3rd party\LuaBridge-master\Source;.\3rd party\LuaBridge-master\Source\LuaBridge;$(VC_SourcePath)</SourcePath>
     <GenerateManifest>false</GenerateManifest>
-    <ExternalIncludePath>D:\cpp\wc3\GoodTool\3rd party\boost\boost_1_81_0_b1;$(ExternalIncludePath)</ExternalIncludePath>
+    <ExternalIncludePath>D:\cpp\wc3\GoodTool\3rd party\zip\src;$(ExternalIncludePath)</ExternalIncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>

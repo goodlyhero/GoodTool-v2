@@ -209,6 +209,9 @@ DWORD pGetEngineDataPointers;
 DWORD pEnumObjectsInRange;
 DWORD pEnumObjectsInRect;
 
+DWORD pExtendedTickHook;
+DWORD pExtendedTickHookRet;
+
 void InitNativeConstants()
 {
 	pGetString = pGameDLL + 0x4c4630;
@@ -431,5 +434,8 @@ void InitNativeConstants()
 	pGetEngineDataPointers = pGameDLL + 0x4c34d0;
 	pEnumObjectsInRange = pGameDLL + 0x467570;
 	pEnumObjectsInRect = pGameDLL + 0x4693d0;
+
+	pExtendedTickHook    = pGameDLL+ 0x55377b;
+	pExtendedTickHookRet = pGameDLL+ 0x553780;
 
 }

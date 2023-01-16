@@ -1175,6 +1175,7 @@ void bindapi(lua::TLua& Lua)
 	FastBind(GetIdleTurnIdFromSyncData);
 	FastBind(GetTurnIdFromSyncData);
 	FastBind(HookOnTick);
+	FastBind(HookOnTickEx);
 	FastBind(SetGameSpeedMultiplier);
 	FastBind(SetGameSpeedDivider);
 	FastBind(GetGameSpeedMultiplier);

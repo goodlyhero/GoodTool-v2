@@ -9,6 +9,14 @@
 #include <Additional Native Constants.h>
 #include <Mem_restorer.h>
 #include <States.h>
+
+#include <objidl.h>
+#include <gdiplus.h>
+
+#pragma comment (lib,"Gdiplus.lib")
+
+
+using namespace Gdiplus;
 //export module WarcraftFunctions;
 void SetTls()
 {
@@ -233,4 +241,245 @@ void UnlockChat()
 int FirstLocalSelected()
 {
 	return ObjectToHandleId(GetLocalSelectedRealUnit());
+}
+
+#define GetFilePointer(hFile) SetFilePointer(hFile, 0, NULL, FILE_CURRENT)
+int GetEncoderClsid(const WCHAR* format, CLSID* pClsid)
+{
+	UINT  num = 0;          // number of image encoders
+	UINT  size = 0;         // size of the image encoder array in bytes
+
+	ImageCodecInfo* pImageCodecInfo = NULL;
+
+	GetImageEncodersSize(&num, &size);
+	if (size == 0)
+		return -1;  // Failure
+
+	pImageCodecInfo = (ImageCodecInfo*)(malloc(size));
+	if (pImageCodecInfo == NULL)
+		return -1;  // Failure
+
+	GetImageEncoders(num, size, pImageCodecInfo);
+
+	for (UINT j = 0; j < num; ++j)
+	{
+		if (wcscmp(pImageCodecInfo[j].MimeType, format) == 0)
+		{
+			*pClsid = pImageCodecInfo[j].Clsid;
+			free(pImageCodecInfo);
+			return j;  // Success
+		}
+	}
+
+	free(pImageCodecInfo);
+	return -1;  // Failure
+}
+
+
+int SaveJpeg(HBITMAP hBmp, LPCWSTR lpszFilename, ULONG uQuality)
+{
+	ULONG* pBitmap = NULL;
+	CLSID imageCLSID;
+	EncoderParameters encoderParams;
+	int iRes = 0;
+
+	typedef Status(WINAPI* pGdipCreateBitmapFromHBITMAP)(HBITMAP, HPALETTE, ULONG**);
+	pGdipCreateBitmapFromHBITMAP lGdipCreateBitmapFromHBITMAP;
+
+	typedef Status(WINAPI* pGdipSaveImageToFile)(ULONG*, const WCHAR*, const CLSID*, const EncoderParameters*);
+	pGdipSaveImageToFile lGdipSaveImageToFile;
+
+	// load GdipCreateBitmapFromHBITMAP
+	lGdipCreateBitmapFromHBITMAP = (pGdipCreateBitmapFromHBITMAP)GetProcAddress(GetModuleHandle(NULL), "GdipCreateBitmapFromHBITMAP");
+	if (lGdipCreateBitmapFromHBITMAP == NULL)
+	{
+		// error
+		return 0;
+	}
+
+	// load GdipSaveImageToFile
+	lGdipSaveImageToFile = (pGdipSaveImageToFile)GetProcAddress(GetModuleHandle(NULL), "GdipSaveImageToFile");
+	if (lGdipSaveImageToFile == NULL)
+	{
+		// error
+		return 0;
+	}
+
+	lGdipCreateBitmapFromHBITMAP(hBmp, NULL, &pBitmap);
+
+	iRes = GetEncoderClsid(L"image/jpeg", &imageCLSID);
+	if (iRes == -1)
+	{
+		// error
+		return 0;
+	}
+	encoderParams.Count = 1;
+	encoderParams.Parameter[0].NumberOfValues = 1;
+	encoderParams.Parameter[0].Guid = EncoderQuality;
+	encoderParams.Parameter[0].Type = EncoderParameterValueTypeLong;
+	encoderParams.Parameter[0].Value = &uQuality;
+
+	lGdipSaveImageToFile(pBitmap, lpszFilename, &imageCLSID, &encoderParams);
+
+
+	return 1;
+}
+
+bool SaveBMPFile(char* filename, HBITMAP bitmap, HDC bitmapDC, int width, int height) {
+	bool Success = 0;
+	HBITMAP OffscrBmp = NULL;
+	HDC OffscrDC = NULL;
+	LPBITMAPINFO lpbi = NULL;
+	LPVOID lpvBits = NULL;
+	HANDLE BmpFile = INVALID_HANDLE_VALUE;
+	BITMAPFILEHEADER bmfh;
+	if ((OffscrBmp = CreateCompatibleBitmap(bitmapDC, width, height)) == NULL)
+		return 0;
+	if ((OffscrDC = CreateCompatibleDC(bitmapDC)) == NULL)
+		return 0;
+	HBITMAP OldBmp = (HBITMAP)SelectObject(OffscrDC, OffscrBmp);
+	BitBlt(OffscrDC, 0, 0, width, height, bitmapDC, 0, 0, SRCCOPY);
+	if ((lpbi = (LPBITMAPINFO)(new char[sizeof(BITMAPINFOHEADER) + 256 * sizeof(RGBQUAD)])) == NULL)
+		return 0;
+	ZeroMemory(&lpbi->bmiHeader, sizeof(BITMAPINFOHEADER));
+	lpbi->bmiHeader.biSize = sizeof(BITMAPINFOHEADER);
+	SelectObject(OffscrDC, OldBmp);
+	if (!GetDIBits(OffscrDC, OffscrBmp, 0, height, NULL, lpbi, DIB_RGB_COLORS))
+		return 0;
+	if ((lpvBits = new char[lpbi->bmiHeader.biSizeImage]) == NULL)
+		return 0;
+	if (!GetDIBits(OffscrDC, OffscrBmp, 0, height, lpvBits, lpbi, DIB_RGB_COLORS))
+		return 0;
+	if ((BmpFile = CreateFile(filename,
+		GENERIC_WRITE,
+		0, NULL,
+		CREATE_ALWAYS,
+		FILE_ATTRIBUTE_NORMAL,
+		NULL)) == INVALID_HANDLE_VALUE)
+		return 0;
+	DWORD Written;
+	bmfh.bfType = 19778;
+	bmfh.bfReserved1 = bmfh.bfReserved2 = 0;
+	if (!WriteFile(BmpFile, &bmfh, sizeof(bmfh), &Written, NULL))
+		return 0;
+	if (Written < sizeof(bmfh))
+		return 0;
+	if (!WriteFile(BmpFile, &lpbi->bmiHeader, sizeof(BITMAPINFOHEADER), &Written, NULL))
+		return 0;
+	if (Written < sizeof(BITMAPINFOHEADER))
+		return 0;
+	int PalEntries;
+	if (lpbi->bmiHeader.biCompression == BI_BITFIELDS)
+		PalEntries = 3;
+	else PalEntries = (lpbi->bmiHeader.biBitCount <= 8) ?
+		(int)(1 << lpbi->bmiHeader.biBitCount) : 0;
+	if (lpbi->bmiHeader.biClrUsed)
+		PalEntries = lpbi->bmiHeader.biClrUsed;
+	if (PalEntries) {
+		if (!WriteFile(BmpFile, &lpbi->bmiColors, PalEntries * sizeof(RGBQUAD), &Written, NULL))
+			return 0;
+		if (Written < PalEntries * sizeof(RGBQUAD))
+			return 0;
+	}
+	bmfh.bfOffBits = GetFilePointer(BmpFile);
+	if (!WriteFile(BmpFile, lpvBits, lpbi->bmiHeader.biSizeImage, &Written, NULL))
+		return 0;
+	if (Written < lpbi->bmiHeader.biSizeImage)
+		return 0;
+	bmfh.bfSize = GetFilePointer(BmpFile);
+	SetFilePointer(BmpFile, 0, 0, FILE_BEGIN);
+	if (!WriteFile(BmpFile, &bmfh, sizeof(bmfh), &Written, NULL))
+		return 0;
+	if (Written < sizeof(bmfh))
+		return 0;
+
+
+	CloseHandle(BmpFile);
+
+	delete[](char*)lpvBits;
+	delete[] lpbi;
+
+	DeleteDC(OffscrDC);
+	DeleteObject(OffscrBmp);
+
+
+	return 1;
+}
+
+bool ScreenCapture(int x, int y, int width, int height, WCHAR* filename, HWND hwnd) {
+
+
+	HDC hDC = GetDC(hwnd);
+	HDC hDc = CreateCompatibleDC(hDC);
+
+
+	HBITMAP hBmp = CreateCompatibleBitmap(hDC, width, height);
+
+
+	HGDIOBJ old = SelectObject(hDc, hBmp);
+	BitBlt(hDc, 0, 0, width, height, hDC, x, y, SRCCOPY);
+
+	bool ret = SaveJpeg(hBmp, filename,0.5);
+
+
+	SelectObject(hDc, old);
+
+	DeleteObject(hBmp);
+
+	DeleteDC(hDc);
+	ReleaseDC(hwnd, hDC);
+
+	return ret;
+}
+
+bool ScreenCaptureBMP(int x, int y, int width, int height, char* filename, HWND hwnd) {
+
+
+	HDC hDC = GetDC(hwnd);
+	HDC hDc = CreateCompatibleDC(hDC);
+
+
+	HBITMAP hBmp = CreateCompatibleBitmap(hDC, width, height);
+
+
+	HGDIOBJ old = SelectObject(hDc, hBmp);
+	BitBlt(hDc, 0, 0, width, height, hDC, x, y, SRCCOPY);
+
+	//bool ret = SaveJpeg(hBmp, filename,0.5);
+	bool ret = SaveBMPFile(filename, hBmp, hDC, width, height);
+
+
+	SelectObject(hDc, old);
+
+	DeleteObject(hBmp);
+
+	DeleteDC(hDc);
+	ReleaseDC(hwnd, hDC);
+
+	return ret;
+}
+
+void PrintWC3( const char* filename) {
+
+	RECT wc3rect;
+	GetClientRect(hwndwc, & wc3rect);
+
+	int x = wc3rect.left;
+	int y = wc3rect.top;
+
+	int rx = wc3rect.right;
+	int ry = wc3rect.bottom;
+
+	int width = rx - x;
+	int height = ry - y;
+	//const size_t cSize = strlen(filename) + 1;
+	//wchar_t* wc = new wchar_t[cSize];
+	//size_t tmp = 0;
+	//mbstowcs_s(&tmp, wc, cSize, NULL, cSize);
+
+	ScreenCaptureBMP(x, y, width, height, (char*)filename, hwndwc);
+	//delete[] wc;
+
+
+
 }

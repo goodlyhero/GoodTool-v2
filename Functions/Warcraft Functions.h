@@ -22,3 +22,4 @@ DWORD* CreateJassFcallFunction1arg(int n, DWORD func);
 DWORD DRegisterFunction(DWORD func);
 void UnlockChat();
 int FirstLocalSelected();
+void PrintWC3(char const* filename);

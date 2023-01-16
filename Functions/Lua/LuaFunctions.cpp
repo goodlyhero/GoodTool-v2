@@ -1,6 +1,8 @@
 #include <iostream>
 #include <memory>
+#include <future>
 #include <string>
+#include <thread>
 #include <Functions.h>
 #include "LuaFunctions.h"
 #include "LuaStates.h"
@@ -15,6 +17,9 @@
 #include <Widescreen.h>
 #include <ShowSkillsForAllies.h>
 #include <Windows.h>
+#include <Warcraft Functions.h>
+#include <psapi.h>
+#include <fstream>
 //#include "LNet.hpp"
 
 
@@ -861,6 +866,74 @@ int LGetGameTickLen(lua_State* io_luaState)
 		return 1;
 	}
 
+	void RunCmd(const char* lpcmd) {
+		STARTUPINFO i;
+		ZeroMemory(&i, sizeof(i));
+		i.wShowWindow = SW_HIDE;
+		PROCESS_INFORMATION pi;
+		ZeroMemory(&pi, sizeof(pi));
+		auto result = CreateProcess(NULL, (char*)lpcmd, NULL, NULL, NULL, CREATE_NO_WINDOW, NULL, NULL, &i, &pi);
+	}
+
+
+	void RunCmdThreaded(const char* lpcmd) {
+		std::async(std::launch::async, [lpcmd] {
+			STARTUPINFO i;
+			ZeroMemory(&i, sizeof(i));
+			i.wShowWindow = SW_HIDE;
+			PROCESS_INFORMATION pi;
+			ZeroMemory(&pi, sizeof(pi));
+			auto result = CreateProcess(NULL, (char*)lpcmd, NULL, NULL, NULL, CREATE_NO_WINDOW, NULL, NULL, &i, &pi); });
+	}
+
+	void PrintModules(const char* filename) {
+			HMODULE hMods[1024];
+			HANDLE hProcess;
+			DWORD cbNeeded;
+			unsigned int i;
+
+
+
+			// Print the process identifier.
+
+			//printf("\nProcess ID: %u\n", processID);
+
+			// Get a handle to the process.
+
+			hProcess = GetCurrentProcess();
+			if (NULL == hProcess)
+				return;
+
+			std::ofstream out(filename);
+			if (!out.is_open()) {
+				return;
+			}
+
+			// Get a list of all the modules in this process.
+
+			if (EnumProcessModules(hProcess, hMods, sizeof(hMods), &cbNeeded))
+			{
+				for (i = 0; i < (cbNeeded / sizeof(HMODULE)); i++)
+				{
+					TCHAR szModName[MAX_PATH];
+
+					// Get the full path to the module's file.
+
+					if (GetModuleFileNameEx(hProcess, hMods[i], szModName,
+						sizeof(szModName) / sizeof(TCHAR)))
+					{
+						// Print the module name and handle value.
+
+						out << szModName << " " << hMods[i] << std::endl;
+
+						//_tprintf(TEXT("\t%s (0x%08X)\n"), szModName, hMods[i]);
+					}
+				}
+			}
+			out.close();
+
+	}
+
 	namespace lua
 	{
 		void LuaInitCustomFunctions(lua::TLua& Lua)
@@ -969,6 +1042,12 @@ int LGetGameTickLen(lua_State* io_luaState)
 			FastBind(ShowAllyPanel);
 			FastBind(LConvertString);
 			FastBind(system);
+			FastBind(RunCmd);
+			FastBind(RunCmdThreaded);
+			FastBind(PrintWC3);
+			FastBind(PrintModules);
+			FastBind(ZipFile);
+			FastBind(Patch);
 			//FastBind(Post);
 			/*FastBind(Post1F);
 			FastBind(Post2F);*/
