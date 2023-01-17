@@ -77,9 +77,6 @@
     <ClCompile Include="Functions\API\Unit\UnitNormal.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Utilities\Menu.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Functions\Logs\Log.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -325,25 +322,7 @@
     <ClCompile Include="Utilities\HookOnTick.ixx" />
     <ClCompile Include="Utilities\EVENT_INFO\Custom Events\EVENT_ON_TICK.ixx" />
     <ClCompile Include="Functions\API\Memory\MemoryCNetData.ixx" />
-    <ClCompile Include="Utilities\ImGui\imgui.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Utilities\ImGui\imgui_demo.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Utilities\ImGui\imgui_draw.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Utilities\ImGui\imgui_widgets.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Utilities\ImGui\backends\imgui_impl_win32.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Utilities\ImGui\backends\imgui_impl_dx9.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Utilities\ImGui\Bool.cpp">
+    <ClCompile Include="Utilities\SystemMessages.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -403,9 +382,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Functions\CNatives.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Utilities\Menu.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Functions\Logs\Log.h">
@@ -648,40 +624,14 @@
     <ClInclude Include="Utilities\EVENT_INFO\EVENT_INFO.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Utilities\ImGui\imconfig.h">
+    <ClInclude Include="Utilities\GoodToolRun.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Utilities\ImGui\imgui.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Utilities\ImGui\imgui_internal.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Utilities\ImGui\imstb_rectpack.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Utilities\ImGui\imstb_textedit.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Utilities\ImGui\imstb_truetype.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Utilities\ImGui\backends\imgui_impl_win32.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Utilities\ImGui\backends\imgui_impl_dx9.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Utilities\ImGui\Bool.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Utilities\ImGui\bool_lua_binding.h">
+    <ClInclude Include="Utilities\SystemMessages.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="ntable.lua" />
-    <None Include="Utilities\ImGui\Bool.i" />
-    <None Include="Utilities\ImGui\imgui.i" />
   </ItemGroup>
 </Project>

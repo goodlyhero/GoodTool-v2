@@ -1,10 +1,13 @@
 #include <list>
 #include <memory>
-#include <Menu.h>
+//#include <Menu.h>
 #include <lua/LuaStates.h>
 #include "PeriodicEventData.h"
 #include "HookChat.h"
 #include <LuaFunctions.h>
+
+#include "SystemMessages.h"
+#include "GoodToolRun.h"
 import JassLuaThreadInteraction;
 import UnlimitMapSize;
 namespace pEvent_Data
@@ -90,53 +93,34 @@ bool ProcessEvent(pEvent_Data::PeriodicEventData::EventMSG* event)
 	{
 		int code = event->code;
 		void* data = event->data;
+		std::cout << code << std::endl;
 		switch (code)
 		{
-		case EVENT_CODE_RUN_LUA:
+		case EVENT_CODE_RUN_LUA_LOCAL:
+		case EVENT_CODE_RUN_LUA_GLOBAL:
 		{
-			if (NULL == menu::EditText)
-			{
-				return true;
-			}
-			mlog::Lua("Trying To run code from menu:\n", menu::EditText);
+			std::cout << "running code" << std::endl;
+
+			const char* script = (const char*)event->data;
 			lua::TLua* state;
-			if (menu::LocalMode)
+			if (code == EVENT_CODE_RUN_LUA_GLOBAL)
 			{
 				state = lua::GetGlobalState();
-				//mlog::Debug("Getting Global State");
 			}
 			else
 			{
 				state = lua::GetLocalState();
-				//mlog::Debug("Getting Local State");
 			}
 			if (state != NULL)
 			{
-				state->DoStr(menu::EditText,"Menu");
-
+				state->DoStr(script, "external script");
 			}
+			delete[] script;
 			return true;
 			break;
 		}
+		break;
 		case EVENT_CODE_INIT_WX:
-		{
-			mlog::Debug("Running sheduled init: ");
-			auto b = lua::GetGlobalState();
-			if (b != NULL)
-			{
-			}
-			mlog::Debug("Hooking chat");
-			initChatHook();
-			//mlog::Debug("Unlocked map size");
-			//UnlockMapSize();
-			mlog::Debug("Initializing callbacks");
-			InitJassLuaCallbacks();
-			mlog::Debug("Initializing global scripts");
-			lua::InitGlobalScripts(*b);
-			mlog::Debug("Sheduled init was completed");
-
-			return true;
-		}
 		case EVENT_CODE_INIT_SIMPLE:
 		{
 			mlog::Debug("Hooking chat");
@@ -145,31 +129,40 @@ bool ProcessEvent(pEvent_Data::PeriodicEventData::EventMSG* event)
 			UnlockMapSize();
 			mlog::Debug("Initializing callbacks");
 			InitJassLuaCallbacks();
+			if (code == EVENT_CODE_INIT_WX) {
+				mlog::Debug("Initializing global scripts");
+				auto b = lua::GetGlobalState();
+				if (b != NULL) lua::InitGlobalScripts(*b);
+			}
+			mlog::Debug("Sheduled init was completed");
+
 			return true;
 		}
+		break;
 		default:
 			return true;
 		}
 	}
-	return false;
+	return true;
 }
 
 void ProcessPeriodic()
 {
+	//ProcessSystemMessage();
 	if (Periodic_Events.availiable)
 {
 		Periodic_Events.lock();
 		std::list< pEvent_Data::PeriodicEventData::EventMSG*> toclear;
-		for (auto a : Periodic_Events.msgs)
-		{
-			if (ProcessEvent(a))
-			{
-				toclear.push_back(a);
+		while (Periodic_Events.msgs.size() > 0) {
+			auto iter = Periodic_Events.msgs.begin();
+			auto a = *iter;
+			if (ProcessEvent(a)) {
+				mlog::Debug("Event processed: ", a->code);
 			}
-		}
-		for (auto var : toclear)
-		{
-			Periodic_Events.msgs.remove(var);
+			else {
+				mlog::Debug("Event not processed: ", a->code);
+			}
+			Periodic_Events.msgs.erase(iter);
 		}
 		Periodic_Events.unlock();
 	}

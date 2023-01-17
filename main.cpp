@@ -15,7 +15,7 @@
 #include <Additional Native Functions.h>
 #include <Jass Natives.h>
 #include <Warcraft Functions.h>
-#include <Menu.h>
+#include "Utilities/SystemMessages.h"
 #include "Functions/API/InitGameUI.h"
 #include "Functions/Lua/LuaStates.h"
 #include <Lua/LuaEngine.h>
@@ -64,7 +64,7 @@ void DetachPreparations()
 		DetachInterestingTextHook();
 		detachNetMsgInitHook();
 
-		menu::DestroyWindows();
+		//menu::DestroyWindows();
 	}
 	CreateThread(NULL, NULL, (LPTHREAD_START_ROUTINE)detachLibrary, NULL, NULL, NULL);
 	return;
@@ -119,7 +119,7 @@ void SetWindowName()
 
 void mCreateWindow()
 {
-	menu::MyWindows(ThisLib);
+	//menu::MyWindows(ThisLib);
 
 }
 
@@ -186,6 +186,8 @@ BOOL WINAPI DllMain(HMODULE hModule, DWORD dwReason, LPVOID lpReserved)
 		mlog::State("Lua initialized");
 		lua::InitEventHooks();
 		mlog::State("Event Hooks Initialized");
+		InitMessageWindow();
+		mlog::State("Initialized system messages");
 		if (GetModuleHandleA("Loader.dll")!=NULL)
 		{
 			FromLoader = true;
@@ -209,7 +211,6 @@ BOOL WINAPI DllMain(HMODULE hModule, DWORD dwReason, LPVOID lpReserved)
 			UnlockChat();
 			mlog::Debug("Chat unlocked");
 			AddEvent(EVENT_CODE_INIT_WX, NULL);
-			CreateThread(NULL, NULL, (LPTHREAD_START_ROUTINE)mCreateWindow, NULL, NULL, NULL);
 		}
 
 

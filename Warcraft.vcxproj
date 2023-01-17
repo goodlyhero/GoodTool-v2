@@ -273,16 +273,8 @@
     <ClCompile Include="Utilities\Hook Text Messages.cpp" />
     <ClCompile Include="Utilities\HookChat.cpp" />
     <ClCompile Include="Utilities\HookOnTick.ixx" />
-    <ClCompile Include="Utilities\ImGui\backends\imgui_impl_dx9.cpp" />
-    <ClCompile Include="Utilities\ImGui\backends\imgui_impl_win32.cpp" />
-    <ClCompile Include="Utilities\ImGui\Bool.cpp" />
-    <ClCompile Include="Utilities\ImGui\imgui.cpp" />
-    <ClCompile Include="Utilities\ImGui\imgui_demo.cpp" />
-    <ClCompile Include="Utilities\ImGui\imgui_draw.cpp" />
-    <ClCompile Include="Utilities\ImGui\imgui_widgets.cpp" />
     <ClCompile Include="Utilities\JassLuaThreadInteraction.ixx" />
     <ClCompile Include="Utilities\Mem_restorer.cpp" />
-    <ClCompile Include="Utilities\Menu.cpp" />
     <ClCompile Include="main.cpp">
       <CompileAsManaged Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</CompileAsManaged>
       <CompileAsManaged Condition="'$(Configuration)|$(Platform)'=='Simple|Win32'">false</CompileAsManaged>
@@ -309,6 +301,7 @@
     <ClCompile Include="Utilities\PrintDmg.cpp" />
     <ClCompile Include="Utilities\Properties.cpp" />
     <ClCompile Include="Utilities\RenderHook.ixx" />
+    <ClCompile Include="Utilities\SystemMessages.cpp" />
     <ClCompile Include="Utilities\ShowSkillsForAllies.cpp" />
     <ClCompile Include="Utilities\UIHooks.ixx" />
     <ClCompile Include="Utilities\UnlimitMapSize.ixx" />
@@ -405,31 +398,20 @@
     <ClInclude Include="Utilities\EVENT_INFO\EVENT_INFO.h" />
     <ClInclude Include="Utilities\Hook Text Messages.h" />
     <ClInclude Include="Utilities\HookChat.h" />
-    <ClInclude Include="Utilities\ImGui\backends\imgui_impl_dx9.h" />
-    <ClInclude Include="Utilities\ImGui\backends\imgui_impl_win32.h" />
-    <ClInclude Include="Utilities\ImGui\Bool.h" />
-    <ClInclude Include="Utilities\ImGui\bool_lua_binding.h" />
-    <ClInclude Include="Utilities\ImGui\imconfig.h" />
-    <ClInclude Include="Utilities\ImGui\imgui.h" />
-    <ClInclude Include="Utilities\ImGui\imgui_internal.h" />
-    <ClInclude Include="Utilities\ImGui\imstb_rectpack.h" />
-    <ClInclude Include="Utilities\ImGui\imstb_textedit.h" />
-    <ClInclude Include="Utilities\ImGui\imstb_truetype.h" />
     <ClInclude Include="Utilities\Mem_restorer.h" />
-    <ClInclude Include="Utilities\Menu.h" />
     <ClInclude Include="main.h" />
     <ClInclude Include="Utilities\MPQres.h" />
     <ClInclude Include="Utilities\Observer\DataNode Info Types.h" />
     <ClInclude Include="Utilities\PeriodicEventData.h" />
     <ClInclude Include="Utilities\PrintDmg.h" />
     <ClInclude Include="Utilities\Properties.h" />
+    <ClInclude Include="Utilities\GoodToolRun.h" />
+    <ClInclude Include="Utilities\SystemMessages.h" />
     <ClInclude Include="Utilities\ShowSkillsForAllies.h" />
     <ClInclude Include="Utilities\Widescreen.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ntable.lua" />
-    <None Include="Utilities\ImGui\Bool.i" />
-    <None Include="Utilities\ImGui\imgui.i" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets" />
