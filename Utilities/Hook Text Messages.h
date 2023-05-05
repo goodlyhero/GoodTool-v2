@@ -10,3 +10,6 @@ void DetachInterestingTextHook();
 void NetMsgInitHook();
 void detachNetMsgInitHook();
 void HookNetEvents();
+
+void InitDebugHook();
+void DetachDebugHook();

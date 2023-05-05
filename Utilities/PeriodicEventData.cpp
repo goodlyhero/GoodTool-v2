@@ -94,16 +94,38 @@ bool ProcessEvent(pEvent_Data::PeriodicEventData::EventMSG* event)
 		int code = event->code;
 		void* data = event->data;
 		std::cout << code << std::endl;
+		bool local = false;
+		bool file = true;
 		switch (code)
 		{
 		case EVENT_CODE_RUN_LUA_LOCAL:
 		case EVENT_CODE_RUN_LUA_GLOBAL:
+		case EVENT_CODE_RUN_LUA_LOCAL_FILE:
+		case EVENT_CODE_RUN_LUA_GLOBAL_FILE:
 		{
 			std::cout << "running code" << std::endl;
 
-			const char* script = (const char*)event->data;
+			const char* data = (const char*)event->data;
 			lua::TLua* state;
-			if (code == EVENT_CODE_RUN_LUA_GLOBAL)
+			switch (code) {
+			case EVENT_CODE_RUN_LUA_LOCAL:
+				local = true;
+				file = false;
+				break;
+			case EVENT_CODE_RUN_LUA_GLOBAL:
+				local = false;
+				file = false;
+				break;
+			case EVENT_CODE_RUN_LUA_LOCAL_FILE:
+				local = true;
+				file = true;
+				break;
+			case EVENT_CODE_RUN_LUA_GLOBAL_FILE:
+				local = false;
+				file = true;
+				break;
+			}
+			if (local)
 			{
 				state = lua::GetGlobalState();
 			}
@@ -111,11 +133,18 @@ bool ProcessEvent(pEvent_Data::PeriodicEventData::EventMSG* event)
 			{
 				state = lua::GetLocalState();
 			}
+
+			std::cout << code<<" '"<<data<<"'" << "locdl: "<<local << "global: "<<file << std::endl;
 			if (state != NULL)
 			{
-				state->DoStr(script, "external script");
+				if (file) {
+					state->DoFile(data);
+				}
+				else {
+					state->DoStr(data, "external script");
+				}
 			}
-			delete[] script;
+			delete[] data;
 			return true;
 			break;
 		}

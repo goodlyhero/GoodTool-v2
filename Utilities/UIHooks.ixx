@@ -5,6 +5,9 @@
 #include <String>
 #include <CNatives.h>
 import CIconCover;
+
+extern DWORD GetLocalSelectedUnit();
+
 export module UIHooks;
 int saveeax;
 char buffer[4000];
@@ -100,7 +103,10 @@ void __declspec(naked)  PrintHook()
 
 void __fastcall CustomDefTip(DWORD pIconCover, DWORD EDX, char* def, char* move, char* desc)
 {
-	DWORD fs = FirstLocalSelected();
+	DWORD fs = GetLocalSelectedUnit();
+	if(fs==NULL) {
+		fs = FirstLocalSelected();
+	}
 	if (fs != 0)
 	{
 		tstr = "|n";
@@ -162,6 +168,8 @@ void __fastcall CustomDefTip(DWORD pIconCover, DWORD EDX, char* def, char* move,
 			tstr += "Invuls: ";
 			tstr += std::to_string(cntr);
 		}
+		tstr += "|n";
+		tstr += "handle: " + std::to_string(fs);
 		tstr += "|n";
 		tstr += desc;
 		SetCIconCoverTip(pIconCover, def, move, (char*)tstr.c_str());

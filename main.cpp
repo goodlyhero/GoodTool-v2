@@ -212,6 +212,9 @@ BOOL WINAPI DllMain(HMODULE hModule, DWORD dwReason, LPVOID lpReserved)
 			mlog::Debug("Chat unlocked");
 			AddEvent(EVENT_CODE_INIT_WX, NULL);
 		}
+		mlog::Debug("initializing Debug msg hook");
+		InitDebugHook();
+
 
 
 		mlog::State("Loading Completed");

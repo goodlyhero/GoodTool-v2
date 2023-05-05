@@ -21,6 +21,9 @@ import JassNamesMemory;
 import APITimerEx;
 import MemoryCNetData;
 import HookOnTick;
+
+extern DWORD GetLocalSelectedUnitReal();
+extern DWORD GetLocalSelectedUnit();
 //#include <iostream>
 #define id(x) #x
 #define FastBind(x) binder->def(id(x),x)
@@ -1180,7 +1183,12 @@ void bindapi(lua::TLua& Lua)
 	FastBind(SetGameSpeedDivider);
 	FastBind(GetGameSpeedMultiplier);
 	FastBind(GetGameSpeedDivider);
+
 	lua_setglobalfunction(lua, lua::GetAllUnitAbilitiesIterator, "UnitAbilities");
+
+	FastBind(GetLocalSelectedUnitReal);
+	FastBind(GetLocalSelectedUnit);
+	binder->def("RRS", GetLocalSelectedUnit);
 
 	//FastBind(HookJassRun);
 }

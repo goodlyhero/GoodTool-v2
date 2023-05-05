@@ -6,6 +6,9 @@
 #include <Calls.h>
 #include "FrameTypeHT.h"
 
+#include <Extern Natives.h>
+
+extern jHANDLE ObjectToHandleId(int address);
 
 DWORD GetGameUI(int bInit, int bRelease)
 {
@@ -485,6 +488,16 @@ DWORD GetHeroBarManaBar(int id)
     }
 
     return 0;
+}
+
+DWORD GetLocalSelectedUnitReal() {
+    DWORD ui = GetGameUI(0,0);
+    if(!ui) return 0;
+    return ReadRealMemory(ui+0x3b8);
+}
+
+DWORD GetLocalSelectedUnit() {
+    return ObjectToHandleId(GetLocalSelectedUnitReal());
 }
 
 void UpdateGameUI(void)

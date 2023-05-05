@@ -8,8 +8,8 @@ DWORD ConvertHandleId(jHANDLE handleid)
 {
     if (handleid > 0)
     {
-        DWORD maxid = (ReadRealMemory(ReadRealMemory(pGameState) + 0x1C) + 0x198);
-        if ((maxid*0xC+0x2FFFFF*4)<handleid) return 0;
+        DWORD maxid = ReadRealMemory(ReadRealMemory(ReadRealMemory(pGameState) + 0x1C) + 0x198)-1;
+        if ((maxid*0xC)<handleid*0xc-0x2FFFFF*4) return 0;
         return ReadRealMemory(ReadRealMemory(ReadRealMemory(ReadRealMemory(pGameState) + 0x1C) + 0x19C) + handleid * 0xC - 0x2FFFFF * 4);
     }
 

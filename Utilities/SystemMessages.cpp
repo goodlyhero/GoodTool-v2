@@ -31,20 +31,15 @@ LRESULT CALLBACK WindowProc(
         size_t len = data->cbData;
         int32_t msg = data->dwData;
         switch (msg) {
-        case GOODTOOL_RUN_LOCAL_CODE:
-        case GOODTOOL_RUN_GLOBAL_CODE:
+        case EVENT_CODE_RUN_LUA_LOCAL:
+        case EVENT_CODE_RUN_LUA_GLOBAL:
+        case EVENT_CODE_RUN_LUA_LOCAL_FILE:
+        case EVENT_CODE_RUN_LUA_GLOBAL_FILE:
         {
-            if (msg == GOODTOOL_RUN_LOCAL_CODE) {
-                //std::cout << "running code in local VM\n";
-            }
-            else if (msg == GOODTOOL_RUN_GLOBAL_CODE) {
-                //std::cout << "running code in global VM\n";
-            }
             const char* code = (char*)(data->lpData);
             char* pcode2 = new char[len];
-            auto newmsg = (GOODTOOL_RUN_LOCAL_CODE==msg) ? EVENT_CODE_RUN_LUA_LOCAL:EVENT_CODE_RUN_LUA_GLOBAL;
             memcpy(pcode2, code, len);
-            AddEvent(newmsg, pcode2);
+            AddEvent(msg, pcode2);
             //std::cout << "running code: \n==============================\n" << code << "\n===========================" << std::endl;
             break;
             

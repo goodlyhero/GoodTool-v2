@@ -8,6 +8,8 @@
 DWORD Ret2ChatEroor;
 DWORD Ret2Loading;
 char* errmsgAddress;
+void* varargs;
+void* pbuffer;
 char* interestingtext;
 char* loadingcommands;
 std::ofstream MapErrorOut;
@@ -15,6 +17,7 @@ std::ofstream Storm578Text;
 std::ofstream CommandsLoading;
 std::ofstream NetMsg;
 int MapErrInit = 0;
+int MapDebugInit = 0;
 int Storm578HookInit = 0;
 int NetMsgHookInit = 0;
 int isCommandsLoadinghook = 0;
@@ -71,15 +74,75 @@ void _declspec(naked) CatchChatError()
 	}
 }
 
-
 void InitMapErrorHook()
 {
 	MapErrInit = 1;
-	WriteJmp(dwGameDll+0x3B195A, (DWORD)CatchChatError);
+	WriteJmp(dwGameDll + 0x3B195A, (DWORD)CatchChatError);
 	Ret2ChatEroor = dwGameDll + 0x3B195A + 5;
 }
 
 void DetachMapErrorHook()
+{
+	if (MapErrInit == 1)
+	{
+		MapErrorOut.close();
+		Patch(dwGameDll + 0x3B195A, "\x83\xC4\x14\x5F\x5E", 5);
+		MapErrInit = 0;
+	}
+	return;
+}
+
+
+void  __stdcall LogDebug()
+{
+	char buffer[0x400];
+	
+	vsprintf_s(buffer, errmsgAddress,(va_list) varargs);
+
+	std::cout << buffer << std::endl;
+}
+
+void _declspec(naked) CatchDebugMsg()
+{
+	__asm
+	{
+		mov varargs, esp
+		add varargs,8
+		mov errmsgAddress,esp
+		add errmsgAddress,4
+		push edi
+		push eax
+		push ecx
+		push edx
+		push ebx
+		push esi
+		push ebp
+		mov eax, errmsgAddress
+		mov eax,[eax]
+		mov errmsgAddress,eax
+	}
+	LogDebug();
+	__asm
+	{
+		pop ebp
+		pop esi
+		pop ebx
+		pop edx
+		pop ecx
+		pop eax
+		pop edi
+		ret
+	}
+}
+
+
+void InitDebugHook()
+{
+	MapDebugInit = 1;
+	WriteJmp(dwGameDll+0x20bc60, (DWORD)CatchDebugMsg);
+}
+
+void DetachDebugHook()
 {
 	if (MapErrInit == 1)
 	{
